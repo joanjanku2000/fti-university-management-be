@@ -1,1 +1,1 @@
-# fti-university-management-be
+# FTI - University Management Project in Software Engineering 2
