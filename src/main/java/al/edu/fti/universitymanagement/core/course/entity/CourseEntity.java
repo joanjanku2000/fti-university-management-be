@@ -15,7 +15,7 @@ import javax.persistence.Table;
 import java.time.LocalDateTime;
 
 @EqualsAndHashCode(callSuper = true)
-@Data @AllArgsConstructor @NoArgsConstructor
+@Data @AllArgsConstructor
 @Entity @Table(name = "course")
 @Where(clause = "active=true")
 public class CourseEntity extends BaseEntity {
@@ -26,4 +26,8 @@ public class CourseEntity extends BaseEntity {
 
     @ManyToOne(cascade = CascadeType.PERSIST)
     private Location location;
+
+    public CourseEntity(){
+        super.setActive(true);
+    }
 }
