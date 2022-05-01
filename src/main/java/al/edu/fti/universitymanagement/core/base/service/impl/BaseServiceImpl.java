@@ -14,11 +14,12 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @Service
 public class BaseServiceImpl<E extends BaseEntity, D extends BaseDto> implements BaseService<D,E> {
-    @Autowired
-    private BaseDao<E> baseDao;
 
     @Autowired
-    @Qualifier("base")
+    private BaseDao<E,Long> baseDao;
+
+    @Qualifier("courseConverter")
+    @Autowired
     private BaseConverter<D, E> baseConverter;
 
     @Override
@@ -29,13 +30,15 @@ public class BaseServiceImpl<E extends BaseEntity, D extends BaseDto> implements
 
     @Override
     public D update(D baseDto) {
-        E baseEntity = baseDao.getById(baseDto.getId());
+        E baseEntity = baseDao.getById(((BaseDto)baseDto).getId());
         return baseConverter.toDto(baseDao.save(baseConverter.toEntity(baseDto, baseEntity)));
     }
 
     @Override
     public D read(Long id) {
-        return null;
+        log.info("Base Entity is of Class {}",baseDao.getClass().getName());
+        E baseEntity  = baseDao.getById(id);
+        return baseConverter.toDto(baseEntity);
     }
 
     @Override

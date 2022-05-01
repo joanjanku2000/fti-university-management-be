@@ -1,9 +1,6 @@
 package al.edu.fti.universitymanagement.core.base.service;
 
-import al.edu.fti.universitymanagement.core.base.dto.BaseDto;
-import al.edu.fti.universitymanagement.core.base.entity.BaseEntity;
-
-public interface BaseService<T extends BaseDto, S extends BaseEntity> {
+public interface BaseService<T, E> {
     T save(T baseDto);
 
     T update(T baseDto);

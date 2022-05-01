@@ -1,14 +1,15 @@
 spring:
   datasource:
-#    url: jdbc:h2:file:~/data/uniman
-    url: jdbc:h2:mem:uniman
+    url: jdbc:h2:file:~/data/uniman
+#    url: jdbc:h2:mem:uniman
     username: sa
     password: password
     driverClassName: org.h2.Driver
     show-sql: true
     open-in-view: false
-    initialize: true
-    data: schema.sql
+#    initialize: true
+#    platform: h2
+#    schema: schema.sql
   h2:
     console.enabled: true
 

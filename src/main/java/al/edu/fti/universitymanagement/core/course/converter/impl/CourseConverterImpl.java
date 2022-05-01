@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 @Service(value = "courseConverter")
 public class CourseConverterImpl implements CourseConverter {
+
     private final BaseConverter<LocationDto, Location> baseConverter;
 
     @Override

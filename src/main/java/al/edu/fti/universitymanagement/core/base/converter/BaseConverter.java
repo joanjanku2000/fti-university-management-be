@@ -4,7 +4,7 @@ import al.edu.fti.universitymanagement.core.base.dto.BaseDto;
 import al.edu.fti.universitymanagement.core.base.entity.BaseEntity;
 
 
-public interface BaseConverter<T extends BaseDto, S extends BaseEntity> {
+public interface BaseConverter<T extends BaseDto , S> {
      T toDto(S baseEntity);
 
      S toEntity(T baseDto);
