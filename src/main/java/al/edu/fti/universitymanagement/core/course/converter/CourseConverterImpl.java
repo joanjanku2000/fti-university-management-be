@@ -1,7 +1,6 @@
-package al.edu.fti.universitymanagement.core.course.converter.impl;
+package al.edu.fti.universitymanagement.core.course.converter;
 
 import al.edu.fti.universitymanagement.core.base.converter.BaseConverter;
-import al.edu.fti.universitymanagement.core.course.converter.CourseConverter;
 import al.edu.fti.universitymanagement.core.course.dto.CourseDto;
 import al.edu.fti.universitymanagement.core.course.dto.LocationDto;
 import al.edu.fti.universitymanagement.core.course.entity.CourseEntity;
@@ -10,8 +9,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
-@Service(value = "courseConverter")
-public class CourseConverterImpl implements CourseConverter {
+@Service
+public class CourseConverterImpl implements BaseConverter<CourseDto,CourseEntity> {
 
     private final BaseConverter<LocationDto, Location> baseConverter;
 

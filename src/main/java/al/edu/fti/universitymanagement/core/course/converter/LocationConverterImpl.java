@@ -1,13 +1,12 @@
-package al.edu.fti.universitymanagement.core.course.converter.impl;
+package al.edu.fti.universitymanagement.core.course.converter;
 
-import al.edu.fti.universitymanagement.core.course.converter.LocationConverter;
+import al.edu.fti.universitymanagement.core.base.converter.BaseConverter;
 import al.edu.fti.universitymanagement.core.course.dto.LocationDto;
 import al.edu.fti.universitymanagement.core.course.entity.Location;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 @Service
-public class LocationConverterImpl implements LocationConverter {
+public class LocationConverterImpl implements BaseConverter<LocationDto,Location> {
 
     @Override
     public LocationDto toDto(Location baseEntity) {

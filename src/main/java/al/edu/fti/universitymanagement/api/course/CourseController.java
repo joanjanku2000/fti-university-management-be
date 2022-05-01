@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/v1/course")
 public class CourseController extends BaseController<CourseDto, CourseEntity> {
-
-
     public CourseController(BaseService<CourseDto, CourseEntity> baseService) {
         super(baseService);
     }

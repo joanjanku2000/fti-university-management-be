@@ -2,6 +2,7 @@ package al.edu.fti.universitymanagement.core.course.service.impl;
 
 import al.edu.fti.universitymanagement.core.base.converter.BaseConverter;
 import al.edu.fti.universitymanagement.core.base.dao.BaseDao;
+import al.edu.fti.universitymanagement.core.base.service.impl.BaseServiceImpl;
 import al.edu.fti.universitymanagement.core.course.dao.CourseDao;
 import al.edu.fti.universitymanagement.core.course.dto.CourseDto;
 import al.edu.fti.universitymanagement.core.course.dto.LocationDto;
@@ -14,7 +15,8 @@ import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service
-public class CourseServiceImpl {//implements CourseService {
+public class CourseServiceImpl extends BaseServiceImpl<CourseEntity,CourseDto> {//implements CourseService {
+
 //    private final CourseDao baseDao;
 //
 //    @Qualifier("courseConverter")
