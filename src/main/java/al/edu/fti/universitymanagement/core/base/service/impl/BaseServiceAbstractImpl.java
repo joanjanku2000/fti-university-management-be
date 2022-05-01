@@ -4,24 +4,14 @@ import al.edu.fti.universitymanagement.core.base.converter.BaseConverter;
 import al.edu.fti.universitymanagement.core.base.dao.BaseDao;
 import al.edu.fti.universitymanagement.core.base.dto.BaseDto;
 import al.edu.fti.universitymanagement.core.base.entity.BaseEntity;
-import al.edu.fti.universitymanagement.core.base.service.BaseService;
-import al.edu.fti.universitymanagement.core.course.dto.CourseDto;
-import al.edu.fti.universitymanagement.core.course.entity.CourseEntity;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.Lazy;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Service;
 
 @Slf4j
-public abstract class BaseServiceImpl<E extends BaseEntity, D extends BaseDto> implements BaseService<D,E> {
+public abstract class BaseServiceAbstractImpl<E extends BaseEntity, D extends BaseDto> implements al.edu.fti.universitymanagement.core.base.service.BaseService<D,E> {
 
     @Autowired
     private BaseDao<E,Long> baseDao;
-
-//    @Qualifier("courseConverter")
 
     @Autowired
     private BaseConverter<D, E> baseConverter;

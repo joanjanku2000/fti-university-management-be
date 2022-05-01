@@ -20,7 +20,8 @@ public class LocationConverterImpl implements BaseConverter<LocationDto,Location
 
     @Override
     public Location toEntity(LocationDto baseDto, Location baseEntity) {
-        return null;
+        baseEntity.setName(baseDto.getName());
+        return baseEntity;
     }
 
 }
