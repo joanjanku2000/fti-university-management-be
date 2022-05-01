@@ -8,13 +8,15 @@ import lombok.NoArgsConstructor;
 import org.apache.tomcat.jni.Local;
 import org.hibernate.annotations.Where;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import java.time.LocalDateTime;
 
 @EqualsAndHashCode(callSuper = true)
 @Data @AllArgsConstructor @NoArgsConstructor
-@Entity
+@Entity @Table(name = "course")
 @Where(clause = "active=true")
 public class CourseEntity extends BaseEntity {
     private String name;
@@ -22,6 +24,6 @@ public class CourseEntity extends BaseEntity {
     private LocalDateTime startTime;
     private LocalDateTime endTime;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private Location location;
 }

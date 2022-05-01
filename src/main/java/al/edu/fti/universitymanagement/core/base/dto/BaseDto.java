@@ -18,7 +18,7 @@ public class BaseDto {
         return base;
     }
 
-    public static BaseDto  toDto(BaseEntity baseEntity){
+    public BaseDto toDto(BaseEntity baseEntity){
         return new BaseDto(baseEntity.getId());
     }
 }

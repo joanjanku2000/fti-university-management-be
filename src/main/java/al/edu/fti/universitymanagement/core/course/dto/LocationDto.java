@@ -5,6 +5,7 @@ import al.edu.fti.universitymanagement.core.base.entity.BaseEntity;
 import al.edu.fti.universitymanagement.core.course.entity.Location;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 
@@ -17,13 +18,16 @@ public class LocationDto extends BaseDto {
     private String name;
 
     @Override
-    public Location toEntity(){
-        return new Location(name);
+    public Location toEntity() {
+        Location location = new Location(name);
+        location.setActive(true)
+        ;
+        return location;
     }
 
     @Override
-    public Location toEntity(BaseEntity location){
-       ((Location) location).setName(name);
+    public Location toEntity(BaseEntity location) {
+        ((Location) location).setName(name);
         return (Location) location;
     }
 }

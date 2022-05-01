@@ -1,31 +1,34 @@
 package al.edu.fti.universitymanagement.core.course.service.impl;
 
-import al.edu.fti.universitymanagement.core.base.dto.BaseDto;
+import al.edu.fti.universitymanagement.core.base.service.BaseService;
 import al.edu.fti.universitymanagement.core.course.dto.CourseDto;
+import al.edu.fti.universitymanagement.core.course.dto.LocationDto;
 import al.edu.fti.universitymanagement.core.course.service.CourseService;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+@Slf4j
 @Service
 public class CourseServiceImpl implements CourseService {
 
     @Override
-    public CourseDto save(CourseDto courseDto) {
-
+    public LocationDto save(LocationDto baseDto) {
+        log.info("No here");
         return null;
     }
 
     @Override
-    public CourseDto update(CourseDto baseDto) {
+    public LocationDto update(LocationDto baseDto) {
         return null;
     }
 
     @Override
-    public CourseDto read(Long id) {
+    public LocationDto read(Long id) {
         return null;
     }
 
     @Override
-    public CourseDto delete(Long id) {
+    public LocationDto delete(Long id) {
         return null;
     }
 }
