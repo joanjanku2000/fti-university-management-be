@@ -1,7 +1,6 @@
 package al.edu.fti.universitymanagement.uniman.core.course.dto;
 
 import al.edu.fti.universitymanagement.base.core.dto.BaseDto;
-import al.edu.fti.universitymanagement.base.core.entity.BaseEntity;
 import al.edu.fti.universitymanagement.uniman.core.course.entity.CourseEntity;
 import al.edu.fti.universitymanagement.uniman.core.util.CustomZonedDateTimeDeserializer;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -16,7 +15,8 @@ import javax.validation.constraints.NotEmpty;
 import java.time.LocalDateTime;
 
 
-@Data @NoArgsConstructor
+@Data
+@NoArgsConstructor
 public class CourseDto extends BaseDto {
 
     @NotEmpty
@@ -53,15 +53,15 @@ public class CourseDto extends BaseDto {
         this.endTime = endTime;
     }
 
-    public boolean equals(Object o){
-        if (o instanceof CourseDto){
+    public boolean equals(Object o) {
+        if (o instanceof CourseDto) {
             return ((CourseDto) o).getLocation().equals(location) && ((CourseDto) o).getDescription().equals(description) && ((CourseDto) o).endTime.equals(endTime) && ((CourseDto) o).startTime.equals(startTime);
         }
         return false;
     }
 
-    public CourseDto toDto(CourseEntity entity){
-        return new CourseDto(entity.getId(),entity.getName(),entity.getDescription(),entity.getStartTime(),entity.getEndTime());
+    public CourseDto toDto(CourseEntity entity) {
+        return new CourseDto(entity.getId(), entity.getName(), entity.getDescription(), entity.getStartTime(), entity.getEndTime());
     }
 
 }

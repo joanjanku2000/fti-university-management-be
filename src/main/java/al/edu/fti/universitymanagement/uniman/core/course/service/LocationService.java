@@ -6,8 +6,10 @@ import al.edu.fti.universitymanagement.base.core.service.impl.BaseServiceAbstrac
 import al.edu.fti.universitymanagement.base.core.validator.BaseValidator;
 import al.edu.fti.universitymanagement.uniman.core.course.dto.LocationDto;
 import al.edu.fti.universitymanagement.uniman.core.course.entity.LocationEntity;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 public class LocationService extends BaseServiceAbstractImpl<LocationEntity, LocationDto> {
 
