@@ -122,3 +122,7 @@ CREATE TABLE `friendship` (
 	REFERENCES university_user(id)
 );
 
+ALTER TABLE `fti_uniman`.`university_user`
+    CHANGE COLUMN `active` `active` VARCHAR(255) NULL DEFAULT NULL ,
+    ADD UNIQUE INDEX `active_UNIQUE` (`active` ASC) VISIBLE;
+;
