@@ -52,7 +52,6 @@ public abstract class BaseServiceAbstractImpl<E extends BaseEntity, D extends Ba
 
     /**
      * Soft delete method
-     *
      * @param id Id of Entity
      * @return Deleted Object
      */
