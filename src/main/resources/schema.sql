@@ -126,3 +126,14 @@ ALTER TABLE `fti_uniman`.`university_user`
     CHANGE COLUMN `active` `active` VARCHAR(255) NULL DEFAULT NULL ,
     ADD UNIQUE INDEX `active_UNIQUE` (`active` ASC) VISIBLE;
 ;
+
+ALTER TABLE `fti_uniman`.`university_user`
+    ADD COLUMN `email` VARCHAR(255) NULL AFTER `active`,
+    ADD UNIQUE INDEX `email_UNIQUE` (`email` ASC) VISIBLE,
+    DROP INDEX `active_UNIQUE` ;
+;
+
+
+ALTER TABLE `fti_uniman`.`university_user`
+    ADD COLUMN `password` VARCHAR(255) NULL AFTER `email`;
+
