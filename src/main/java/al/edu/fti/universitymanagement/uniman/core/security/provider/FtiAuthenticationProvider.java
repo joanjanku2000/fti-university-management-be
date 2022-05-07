@@ -31,6 +31,8 @@ public class FtiAuthenticationProvider implements AuthenticationProvider {
         UserEntity foundEntity = userDao.findByEmail(username)
                 .orElseThrow(() -> new NotFoundException(ErrorMessages.NOT_FOUND));
         if (new BCryptPasswordEncoder().matches(pwd,foundEntity.getPassword())) {
+            UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(username,pwd, Collections.emptyList());
+
             return new UsernamePasswordAuthenticationToken(username,pwd, Collections.emptyList()); // for the moment
         } else {
             throw new BadCredentialsException("Passwords don't match");

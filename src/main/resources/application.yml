@@ -17,3 +17,7 @@ spring:
       ddl-auto: none
     show-sql: true
     spring.jpa.database-platform: org.hibernate.dialect.MySQLDialect
+
+
+key: Administratori123++/@
+tokenValidity: 60*60

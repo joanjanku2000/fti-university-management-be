@@ -2,6 +2,8 @@ package al.edu.fti.universitymanagement.uniman.core.security.api;
 
 import al.edu.fti.universitymanagement.base.core.validator.exceptions.NotFoundException;
 import al.edu.fti.universitymanagement.base.core.validator.exceptions.messages.ErrorMessages;
+import al.edu.fti.universitymanagement.uniman.core.security.user.FtiUser;
+import al.edu.fti.universitymanagement.uniman.core.security.util.JwtUtil;
 import al.edu.fti.universitymanagement.uniman.core.user.UserService;
 import al.edu.fti.universitymanagement.uniman.core.user.dao.UserDao;
 import al.edu.fti.universitymanagement.uniman.core.user.dto.UserDto;
@@ -51,10 +53,10 @@ public class AuthenticationController {
 
         // TODO Validate Microsoft Token
 
-        if (!userService.existsByEmail(request.getEmail())) {
-            log.info("Creating user for the first time");
-            userService.createUserAtFirstLogin(request);
-        }
+//        if (!userService.existsByEmail(request.getEmail())) {
+//            log.info("Creating user for the first time");
+//            userService.createUserAtFirstLogin(request);
+//        }
 
         UserDto user = userService
                 .findByEmail(request.getEmail())
@@ -66,8 +68,8 @@ public class AuthenticationController {
 
         authenticationResult = authenticationManager.authenticate
                 (new UsernamePasswordAuthenticationToken(user.getEmail(),request.getMicrosoftAccessToken()));
-
-        log.info("Authentication result {}",authenticationResult.getPrincipal());
+        String token = JwtUtil.createJwt(user);
+        log.info("Authentication result {}",(authenticationResult.getPrincipal()));
        return ResponseEntity.ok(authenticationResult.getPrincipal());
 
     }
