@@ -20,9 +20,9 @@ import org.springframework.data.domain.PageRequest;
 public abstract class BaseServiceAbstractImpl<E extends BaseEntity, D extends BaseDto> implements BaseService<D, E> {
 
     private static final String SERVICE = "Service";
-    private final BaseDao<E, Long> baseDao;
-    private final BaseConverter<D, E> baseConverter;
-    private final BaseValidator<D, E> baseValidator;
+    protected final BaseDao<E, Long> baseDao;
+    protected final BaseConverter<D, E> baseConverter;
+    protected final BaseValidator<D, E> baseValidator;
 
     @Override
     public D save(D baseDto) {
@@ -52,7 +52,6 @@ public abstract class BaseServiceAbstractImpl<E extends BaseEntity, D extends Ba
 
     /**
      * Soft delete method
-     *
      * @param id Id of Entity
      * @return Deleted Object
      */
