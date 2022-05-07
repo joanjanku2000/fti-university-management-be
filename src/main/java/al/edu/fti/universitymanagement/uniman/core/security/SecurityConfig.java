@@ -48,9 +48,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/login")
                 .permitAll();
+
         http.authorizeRequests()
-                .antMatchers(HttpMethod.GET, "/api/**").hasAuthority(Role.STUDENT.toString());
-//        http.addFilter(new CustomAuthenticationFilter(authenticationManagerBean()));
+                .antMatchers(HttpMethod.GET, "/api/**")
+                .hasAuthority(Role.STUDENT.toString());
+
         http.addFilterBefore(new JwtTokenFilter(userDetailsService), UsernamePasswordAuthenticationFilter.class);
     }
 

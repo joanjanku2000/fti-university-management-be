@@ -44,6 +44,7 @@ public class UserService extends BaseServiceAbstractImpl<UserEntity, UserDto> {
     }
 
     public void createUserAtFirstLogin(UserDto userDto){
+        userDto.setPassword("password");
         super.save(userDto);
     }
 }
