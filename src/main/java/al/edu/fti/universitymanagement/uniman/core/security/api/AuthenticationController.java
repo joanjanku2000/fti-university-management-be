@@ -4,6 +4,7 @@ import al.edu.fti.universitymanagement.base.core.validator.exceptions.NotFoundEx
 import al.edu.fti.universitymanagement.base.core.validator.exceptions.messages.ErrorMessages;
 import al.edu.fti.universitymanagement.uniman.core.security.user.FtiUser;
 import al.edu.fti.universitymanagement.uniman.core.security.util.JwtUtil;
+import al.edu.fti.universitymanagement.uniman.core.security.util.SecurityUtil;
 import al.edu.fti.universitymanagement.uniman.core.user.UserService;
 import al.edu.fti.universitymanagement.uniman.core.user.dao.UserDao;
 import al.edu.fti.universitymanagement.uniman.core.user.dto.UserDto;
@@ -44,6 +45,7 @@ public class AuthenticationController {
     private final UserService userService;
     private final AuthenticationManager authenticationManager;
 
+
     @CrossOrigin
     @PostMapping("/login")
     public ResponseEntity authenticate(@Valid @RequestBody UserDto request) throws IOException {
@@ -62,15 +64,17 @@ public class AuthenticationController {
                 .findByEmail(request.getEmail())
                 ;
         user.setMicrosoftAccessToken(request.getMicrosoftAccessToken()); // to use as password
+
         log.info("Finding user by email");
         userService.updateLoginTokenPassword(user);
         log.info("Set password to new token");
 
         authenticationResult = authenticationManager.authenticate
-                (new UsernamePasswordAuthenticationToken(user.getEmail(),request.getMicrosoftAccessToken()));
+                (new UsernamePasswordAuthenticationToken(user.getEmail(),"password"));
+
         String token = JwtUtil.createJwt(user);
         log.info("Authentication result {}",(authenticationResult.getPrincipal()));
-       return ResponseEntity.ok(authenticationResult.getPrincipal());
+       return ResponseEntity.ok(SecurityUtil.toLoginResponse(user,token));
 
     }
 

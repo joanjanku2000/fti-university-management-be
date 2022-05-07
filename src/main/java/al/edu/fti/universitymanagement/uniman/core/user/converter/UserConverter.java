@@ -25,7 +25,7 @@ public class UserConverter implements BaseConverter<UserDto, UserEntity> {
         userDto.setPicture(baseEntity.getPicture());
         userDto.setLastName(baseEntity.getLastName());
         userDto.setRole(baseEntity.getRole());
-
+        userDto.setPassword(baseEntity.getPassword());
         return userDto;
     }
 

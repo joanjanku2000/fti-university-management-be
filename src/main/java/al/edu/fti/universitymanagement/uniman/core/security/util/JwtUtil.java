@@ -42,12 +42,30 @@ public class JwtUtil {
         return jwtBuilder.compact();
 
     }
-    public static Claims decodeJwt(String jwt){
+    private static Claims decodeJwt(String jwt){
         return Jwts.parser()
                 .setSigningKey(DatatypeConverter.parseBase64Binary(signingKey))
                 .parseClaimsJws(jwt)
                 .getBody();
     }
+    public static boolean tokenIsValid(String jwt){
+        try {
+            decodeJwt(jwt);
+            return true;
+        } catch (Exception e){
+            return false;
+        }
+    }
+    public static UserDto extractDto(String jwt){
+        Claims claims = decodeJwt(jwt);
+        UserDto userDto = new UserDto();
+        userDto.setEmail(claims.get("email",String.class));
+        userDto.setName(claims.get("name",String.class));
+        userDto.setLastName(claims.get("lastName",String.class));
+        userDto.setMicrosoftAccessToken(claims.get("microsoftAccessToken",String.class));
+        return userDto;
+    }
+
     private static Map<String,Object> generateClaims(UserDto userDto){
         Map<String,Object> claimsToReturn = new HashMap<>();
         claimsToReturn.put("name",userDto.getName());

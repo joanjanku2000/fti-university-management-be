@@ -2,6 +2,7 @@ package al.edu.fti.universitymanagement.uniman.core.user.dto;
 
 import al.edu.fti.universitymanagement.base.core.dto.BaseDto;
 import al.edu.fti.universitymanagement.uniman.core.enums.Role;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,6 +22,7 @@ public class UserDto extends BaseDto {
     private String picture;
     private Role role;
     private LocalDateTime registrationDate;
-
+    @JsonIgnore
+    private String password;
     private String microsoftAccessToken;
 }
