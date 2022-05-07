@@ -17,7 +17,8 @@ This application has a generic base which involves
 These features are in the form of BaseEntity,BaseService etc. The design uses
   interfaces and abstract classes.
   
-The Generic Service Layer has 3 main components which are injected accordingly
+The Generic Service Layer has 3 main components which are injected accordingly 
+
 <T extends BaseDto , S extends BaseEntity>
 - BaseDao<T,S>
 - BaseConverter<T,S>
