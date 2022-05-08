@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public abstract class BaseController<T extends BaseDto, S extends BaseEntity> {
 
-    private final BaseService<T, S> baseService;
+    protected final BaseService<T, S> baseService;
 
     @PostMapping
     public ResponseEntity<T> save(@RequestBody T courseDto) {

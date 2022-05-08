@@ -32,9 +32,6 @@ public class UserEntity extends BaseEntity {
     private LocalDateTime registrationDate;
     private String password;
 
-    @OneToMany(fetch = FetchType.EAGER)
-    private List<UserCourseEntity> userCourseEntities;
-
     public UserEntity(){
         super.setActive(true);
     }

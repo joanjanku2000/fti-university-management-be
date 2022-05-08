@@ -27,6 +27,7 @@ public class CourseEntity extends BaseEntity {
     private LocationEntity location;
 
     @OneToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name = "course_id",referencedColumnName = "id")
     private List<UserCourseEntity> userCourseEntity;
 
     public CourseEntity(){

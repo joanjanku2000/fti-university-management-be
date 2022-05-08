@@ -137,3 +137,5 @@ ALTER TABLE `fti_uniman`.`university_user`
 ALTER TABLE `fti_uniman`.`university_user`
     ADD COLUMN `password` VARCHAR(255) NULL AFTER `email`;
 
+ALTER TABLE `fti_uniman`.`course_student`
+    CHANGE COLUMN `left_on` `left_on` TIMESTAMP NULL ;

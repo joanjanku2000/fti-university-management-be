@@ -17,10 +17,13 @@ import java.time.LocalDateTime;
 @SQLDelete(sql = "update uc from course_student set active=false where id = ?1")
 public class UserCourseEntity extends BaseEntity {
 
+
     @ManyToOne
+    @JoinColumn(name = "student_id",referencedColumnName = "id")
     private UserEntity userEntity;
 
     @ManyToOne
+    @JoinColumn(name = "course_id",referencedColumnName = "id")
     private CourseEntity courseEntity;
 
     private LocalDateTime joinedOn;
