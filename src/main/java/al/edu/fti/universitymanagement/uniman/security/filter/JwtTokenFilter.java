@@ -1,5 +1,8 @@
-package al.edu.fti.universitymanagement.uniman.core.security.filter;
+package al.edu.fti.universitymanagement.uniman.security.filter;
 
+import al.edu.fti.universitymanagement.uniman.security.util.JwtUtil;
+import al.edu.fti.universitymanagement.uniman.security.util.SecurityUtil;
+import al.edu.fti.universitymanagement.uniman.core.user.dto.UserDto;
 import com.auth0.jwk.Jwk;
 import com.auth0.jwk.JwkException;
 import com.auth0.jwk.JwkProvider;
@@ -8,7 +11,6 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.auth0.jwt.exceptions.SignatureVerificationException;
-import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
@@ -28,7 +30,6 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.security.interfaces.RSAPublicKey;
-import java.util.Collections;
 
 
 @RequiredArgsConstructor
@@ -44,25 +45,28 @@ public class JwtTokenFilter extends OncePerRequestFilter {
             return;
         }
         final String token = header.split(" ")[1].trim();
-//        if (!validate(token)) {
-//            chain.doFilter(request, response);
-//            return;
-//        }
-        DecodedJWT jwt = JWT.decode(token);
-        Claim emailClaim = jwt.getClaim("email");
-        String email = emailClaim.toString().substring(1, emailClaim.toString().length() - 1);
-        UserDetails userDetails = userDetailsService.loadUserByUsername(email);
+
+        if (!JwtUtil.tokenIsValid(token)) {
+            chain.doFilter(request, response);
+            return;
+        }
+
+
+        UserDto userDto = JwtUtil.extractDto(token);
+
+        UserDetails userDetails = userDetailsService
+                .loadUserByUsername(userDto.getEmail());
+
         UsernamePasswordAuthenticationToken
-                authentication = new UsernamePasswordAuthenticationToken(
-                userDetails, null,
-                userDetails == null ?
-                        Collections.emptyList() : userDetails.getAuthorities()
-        );
+                authentication =
+                SecurityUtil.createAuthenticationFromUserDetails(userDetails);
+
         authentication.setDetails(
                 new WebAuthenticationDetailsSource().buildDetails(request)
         );
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
+
         chain.doFilter(request, response);
     }
 

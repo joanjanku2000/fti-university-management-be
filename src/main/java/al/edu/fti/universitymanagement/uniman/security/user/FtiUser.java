@@ -1,14 +1,15 @@
-package al.edu.fti.universitymanagement.uniman.core.security.user;
+package al.edu.fti.universitymanagement.uniman.security.user;
 
 import al.edu.fti.universitymanagement.uniman.core.user.dto.UserDto;
+import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 
+@ToString
 public class FtiUser implements UserDetails {
     private UserDto userDto;
 
@@ -22,7 +23,7 @@ public class FtiUser implements UserDetails {
 
     @Override
     public String getPassword() {
-        return "password";
+        return userDto.getPassword();
     }
 
     /**
@@ -52,5 +53,9 @@ public class FtiUser implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public UserDto getUserDto() {
+        return userDto;
     }
 }

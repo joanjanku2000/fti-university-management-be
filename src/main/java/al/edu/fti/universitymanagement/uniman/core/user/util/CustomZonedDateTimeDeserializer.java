@@ -1,4 +1,4 @@
-package al.edu.fti.universitymanagement.uniman.core.util;
+package al.edu.fti.universitymanagement.uniman.core.user.util;
 
 
 import com.fasterxml.jackson.core.JsonParser;

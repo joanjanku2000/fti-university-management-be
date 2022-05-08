@@ -1,6 +1,7 @@
 package al.edu.fti.universitymanagement.base.core.validator.exceptions.config;
 
 import al.edu.fti.universitymanagement.base.core.validator.exceptions.BadRequestException;
+import al.edu.fti.universitymanagement.base.core.validator.exceptions.NotAllowedException;
 import al.edu.fti.universitymanagement.base.core.validator.exceptions.NotFoundException;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,9 +20,18 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(value = {BadRequestException.class, NotFoundException.class})
     protected ResponseEntity<Object> handleConflict(RuntimeException ex, WebRequest webRequest){
+        ex.printStackTrace();
         return handleExceptionInternal(ex, new ErrorFormat(LocalDateTime.now(), ex.getMessage()), new HttpHeaders() ,
                 ex instanceof BadRequestException ? HttpStatus.BAD_REQUEST : HttpStatus.NOT_FOUND , webRequest
                 );
+    }
+
+    @ExceptionHandler(value = {NotAllowedException.class})
+    protected ResponseEntity<Object> handleNotAllowedConflict(RuntimeException ex, WebRequest webRequest){
+        ex.printStackTrace();
+        return handleExceptionInternal(ex, new ErrorFormat(LocalDateTime.now(), ex.getMessage()), new HttpHeaders() ,
+               HttpStatus.FORBIDDEN , webRequest
+        );
     }
 
     @Data @AllArgsConstructor

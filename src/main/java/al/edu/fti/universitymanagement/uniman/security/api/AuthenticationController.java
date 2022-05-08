@@ -1,17 +1,10 @@
-package al.edu.fti.universitymanagement.uniman.core.security.api;
+package al.edu.fti.universitymanagement.uniman.security.api;
 
-import al.edu.fti.universitymanagement.base.core.validator.exceptions.NotFoundException;
-import al.edu.fti.universitymanagement.base.core.validator.exceptions.messages.ErrorMessages;
+import al.edu.fti.universitymanagement.uniman.security.util.JwtUtil;
+import al.edu.fti.universitymanagement.uniman.security.util.SecurityUtil;
 import al.edu.fti.universitymanagement.uniman.core.user.UserService;
-import al.edu.fti.universitymanagement.uniman.core.user.dao.UserDao;
 import al.edu.fti.universitymanagement.uniman.core.user.dto.UserDto;
-import al.edu.fti.universitymanagement.uniman.core.user.entity.UserEntity;
-import com.auth0.jwk.Jwk;
-import com.auth0.jwk.JwkException;
-import com.auth0.jwk.JwkProvider;
-import com.auth0.jwk.UrlJwkProvider;
 import com.auth0.jwt.JWT;
-import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.auth0.jwt.exceptions.SignatureVerificationException;
 import com.auth0.jwt.interfaces.Claim;
@@ -21,8 +14,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,9 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.security.interfaces.RSAPublicKey;
+import java.util.Map;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -42,56 +33,69 @@ public class AuthenticationController {
     private final UserService userService;
     private final AuthenticationManager authenticationManager;
 
+
     @CrossOrigin
     @PostMapping("/login")
     public ResponseEntity authenticate(@Valid @RequestBody UserDto request) throws IOException {
-        Authentication authenticationRequest;
         Authentication authenticationResult;
 
+        // TODO REFACTOR + Solve Validation Problems
+        Map<String, Claim> claimMap = validateToken(request.getMicrosoftAccessToken());
+        String email = claimMap.get("unique_name").asString();
+        request.setEmail(email);
+        log.info("Login request from {}",email);
 
-        // TODO Validate Microsoft Token
-
-        if (!userService.existsByEmail(request.getEmail())) {
+        if (!userService.existsByEmail(email)) {
             log.info("Creating user for the first time");
             userService.createUserAtFirstLogin(request);
         }
 
         UserDto user = userService
-                .findByEmail(request.getEmail())
-                ;
-        user.setMicrosoftAccessToken(request.getMicrosoftAccessToken()); // to use as password
-        log.info("Finding user by email");
+                .findByEmail(email);
         userService.updateLoginTokenPassword(user);
+
+        user.setMicrosoftAccessToken(request.getMicrosoftAccessToken()); // to use as password
+
+        log.info("Finding user by email");
         log.info("Set password to new token");
 
         authenticationResult = authenticationManager.authenticate
-                (new UsernamePasswordAuthenticationToken(user.getEmail(),request.getMicrosoftAccessToken()));
+                (new UsernamePasswordAuthenticationToken(user.getEmail(),"password"));
 
-        log.info("Authentication result {}",authenticationResult.getPrincipal());
-       return ResponseEntity.ok(authenticationResult.getPrincipal());
+        String token = JwtUtil.createJwt(user);
+        log.info("Authentication result {}",(authenticationResult.getPrincipal()));
+       return ResponseEntity.ok(SecurityUtil.toLoginResponse(user,token));
 
     }
 
-    private void validateToken(String token) {
+    @PostMapping("/logout")
+    public void logout(){
+        SecurityContextHolder.getContext().setAuthentication(null);
+    }
+
+    private Map<String, Claim> validateToken(String token) {
 
         try {
             DecodedJWT jwt = JWT.decode(token);
-            JwkProvider provider = null;
-            Jwk jwk = null;
-            Algorithm algorithm = null;
-            provider = new UrlJwkProvider(new URL("https://login.microsoftonline.com/common/discovery/keys"));
-            jwk = provider.get(jwt.getKeyId());
-            algorithm = Algorithm.RSA256((RSAPublicKey) jwk.getPublicKey(), null);
-            algorithm.verify(jwt);
-        } catch (MalformedURLException e) {
-            throw new RuntimeException("Malformed Token");
-        } catch (JwkException e) {
-            throw new RuntimeException("Invalid token key");
+            return jwt.getClaims();
+//            JwkProvider provider = null;
+//            Jwk jwk = null;
+//            Algorithm algorithm = null;
+//            provider = new UrlJwkProvider(new
+//                    URL("https://login.microsoftonline.com/73744c82-802f-4f14-b3be-a97df0787d17/discovery/v2.0/keys"));
+//            jwk = provider.get(jwt.getKeyId());
+//            algorithm = Algorithm.RSA256((RSAPublicKey) jwk.getPublicKey(), null);
+//            algorithm.verify(jwt);
+
+//        } catch (JwkException e) {
+//            throw new RuntimeException("Invalid token key");
         } catch (SignatureVerificationException e) {
             throw new RuntimeException("Invalid token signature");
         }catch (JWTDecodeException e) {
             throw new RuntimeException("Invalid token decode");
-
+//        } catch (MalformedURLException e) {
+//            throw new RuntimeException("MalformedURLException");
+//        }
         }
     }
 }

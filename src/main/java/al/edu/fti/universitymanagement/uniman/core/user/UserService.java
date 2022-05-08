@@ -31,7 +31,7 @@ public class UserService extends BaseServiceAbstractImpl<UserEntity, UserDto> {
 
     public void updateLoginTokenPassword(UserDto userDto) {
         UserEntity userEntity = baseDao.getById(userDto.getId());
-        userEntity.setPassword(new BCryptPasswordEncoder().encode(userDto.getMicrosoftAccessToken()));
+        userEntity.setPassword(new BCryptPasswordEncoder().encode("password"));
         baseDao.save(userEntity);
         log.info("Successfully added acces token as psw");
     }
@@ -44,6 +44,7 @@ public class UserService extends BaseServiceAbstractImpl<UserEntity, UserDto> {
     }
 
     public void createUserAtFirstLogin(UserDto userDto){
+        userDto.setPassword("password");
         super.save(userDto);
     }
 }
