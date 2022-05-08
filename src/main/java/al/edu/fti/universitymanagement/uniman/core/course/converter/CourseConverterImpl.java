@@ -8,9 +8,16 @@ import al.edu.fti.universitymanagement.uniman.core.course.dto.CourseDto;
 import al.edu.fti.universitymanagement.uniman.core.course.dto.LocationDto;
 import al.edu.fti.universitymanagement.uniman.core.course.entity.CourseEntity;
 import al.edu.fti.universitymanagement.uniman.core.course.entity.LocationEntity;
+import al.edu.fti.universitymanagement.uniman.core.userCourse.converter.UserCourseConverter;
+import al.edu.fti.universitymanagement.uniman.core.userCourse.dto.UserCourseDto;
+import al.edu.fti.universitymanagement.uniman.core.userCourse.entity.UserCourseEntity;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
+
+import java.util.stream.Collectors;
 
 @Slf4j
 @RequiredArgsConstructor

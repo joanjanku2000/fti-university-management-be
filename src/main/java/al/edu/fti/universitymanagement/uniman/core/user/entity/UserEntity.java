@@ -17,7 +17,7 @@ import java.util.List;
 @Entity
 @Table(name = "university_user" )
 @Where(clause = "active=true")
-@SQLDelete(sql = "update university_user u set u.active = false where id = ?1")
+@SQLDelete(sql = "update university_user u set u.active = false where id = ?")
 public class UserEntity extends BaseEntity {
     private String name;
     private String email; // not updatable

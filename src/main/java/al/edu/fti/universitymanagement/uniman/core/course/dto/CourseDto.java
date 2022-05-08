@@ -2,6 +2,7 @@ package al.edu.fti.universitymanagement.uniman.core.course.dto;
 
 import al.edu.fti.universitymanagement.base.core.dto.BaseDto;
 import al.edu.fti.universitymanagement.uniman.core.course.entity.CourseEntity;
+import al.edu.fti.universitymanagement.uniman.core.user.dto.UserDto;
 import al.edu.fti.universitymanagement.uniman.core.user.util.CustomZonedDateTimeDeserializer;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -13,6 +14,7 @@ import lombok.NoArgsConstructor;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import java.time.LocalDateTime;
+import java.util.List;
 
 
 @Data
@@ -43,6 +45,8 @@ public class CourseDto extends BaseDto {
     @NotEmpty
     @NotBlank(message = "Location should not be blank")
     private LocationDto location;
+
+    private List<UserDto> students;
 
     public CourseDto(Long id, String name, String description,
                      LocalDateTime startTime, LocalDateTime endTime) {

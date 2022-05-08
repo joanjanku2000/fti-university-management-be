@@ -1,5 +1,6 @@
 package al.edu.fti.universitymanagement.uniman.security.util;
 
+import al.edu.fti.universitymanagement.base.core.validator.exceptions.NotAllowedException;
 import al.edu.fti.universitymanagement.uniman.security.user.FtiUser;
 import al.edu.fti.universitymanagement.uniman.security.user.LoginResponse;
 import al.edu.fti.universitymanagement.uniman.core.user.dto.UserDto;
@@ -24,6 +25,10 @@ public class SecurityUtil {
     }
 
     public static FtiUser getLoggedUser(){
-        return (FtiUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+      try {
+          return (FtiUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+      } catch (Exception e){
+          throw new NotAllowedException("Not allowed");
+      }
     }
 }

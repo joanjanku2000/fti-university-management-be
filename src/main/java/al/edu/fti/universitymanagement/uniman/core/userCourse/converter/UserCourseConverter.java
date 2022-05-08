@@ -10,6 +10,7 @@ import al.edu.fti.universitymanagement.uniman.core.user.dao.UserDao;
 import al.edu.fti.universitymanagement.uniman.core.user.entity.UserEntity;
 import al.edu.fti.universitymanagement.uniman.core.userCourse.dto.UserCourseDto;
 import al.edu.fti.universitymanagement.uniman.core.userCourse.entity.UserCourseEntity;
+import al.edu.fti.universitymanagement.uniman.security.util.SecurityUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -33,7 +34,7 @@ public class UserCourseConverter implements BaseConverter< UserCourseDto, UserCo
 
     @Override
     public UserCourseEntity toEntity(UserCourseDto baseDto) {
-        UserEntity userEntity = userDao.getById(baseDto.getUserDto().getId());
+        UserEntity userEntity = userDao.getById(SecurityUtil.getLoggedUser().getUserDto().getId());
         CourseEntity courseEntity = courseDao.getById(baseDto.getCourseDto().getId());
 
         UserCourseEntity userCourseEntity = new UserCourseEntity();

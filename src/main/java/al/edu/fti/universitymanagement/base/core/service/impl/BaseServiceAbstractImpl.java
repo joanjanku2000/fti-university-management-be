@@ -12,6 +12,7 @@ import al.edu.fti.universitymanagement.base.core.validator.exceptions.NotFoundEx
 import al.edu.fti.universitymanagement.base.core.validator.exceptions.messages.ErrorMessages;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 

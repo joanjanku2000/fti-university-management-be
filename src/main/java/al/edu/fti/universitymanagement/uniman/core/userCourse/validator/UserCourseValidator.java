@@ -25,7 +25,7 @@ public class UserCourseValidator implements BaseValidator<UserCourseDto, UserCou
 
     @Override
     public void validate(UserCourseDto dto, Operation operation) {
-        Long userId = dto.getUserDto().getId();
+        Long userId = SecurityUtil.getLoggedUser().getUserDto().getId();
         Long courseId = dto.getCourseDto().getId();
 
         if (operation == CREATE) {

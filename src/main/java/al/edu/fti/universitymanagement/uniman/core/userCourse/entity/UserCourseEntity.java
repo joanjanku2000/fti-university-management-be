@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "course_student")
 @Where(clause = "active = true")
-@SQLDelete(sql = "update uc from course_student set active=false where id = ?1")
+@SQLDelete(sql = "update course_student c set c.active = false where c.id = ?")
 public class UserCourseEntity extends BaseEntity {
 
 
