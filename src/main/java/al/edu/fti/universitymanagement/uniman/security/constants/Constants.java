@@ -1,4 +1,4 @@
-package al.edu.fti.universitymanagement.uniman.core.security.constants;
+package al.edu.fti.universitymanagement.uniman.security.constants;
 
 
 public class Constants {

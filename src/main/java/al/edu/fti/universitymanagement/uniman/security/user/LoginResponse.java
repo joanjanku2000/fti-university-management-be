@@ -1,4 +1,4 @@
-package al.edu.fti.universitymanagement.uniman.core.security.user;
+package al.edu.fti.universitymanagement.uniman.security.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

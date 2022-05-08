@@ -1,17 +1,16 @@
 package al.edu.fti.universitymanagement.uniman.core.course.entity;
 
 import al.edu.fti.universitymanagement.base.core.entity.BaseEntity;
+import al.edu.fti.universitymanagement.uniman.core.userCourse.entity.UserCourseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @EqualsAndHashCode(callSuper = true)
 @Data @AllArgsConstructor
@@ -26,6 +25,9 @@ public class CourseEntity extends BaseEntity {
 
     @ManyToOne
     private LocationEntity location;
+
+    @OneToMany(fetch = FetchType.EAGER)
+    private List<UserCourseEntity> userCourseEntity;
 
     public CourseEntity(){
         super.setActive(true);

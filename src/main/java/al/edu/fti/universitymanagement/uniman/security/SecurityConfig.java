@@ -1,8 +1,8 @@
-package al.edu.fti.universitymanagement.uniman.core.security;
+package al.edu.fti.universitymanagement.uniman.security;
 
-import al.edu.fti.universitymanagement.uniman.core.enums.Role;
-import al.edu.fti.universitymanagement.uniman.core.security.filter.JwtTokenFilter;
-import al.edu.fti.universitymanagement.uniman.core.security.provider.FtiAuthenticationProvider;
+import al.edu.fti.universitymanagement.uniman.core.user.enums.Role;
+import al.edu.fti.universitymanagement.uniman.security.filter.JwtTokenFilter;
+import al.edu.fti.universitymanagement.uniman.security.provider.FtiAuthenticationProvider;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;

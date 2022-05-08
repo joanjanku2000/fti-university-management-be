@@ -1,14 +1,11 @@
-package al.edu.fti.universitymanagement.uniman.core.security.util;
+package al.edu.fti.universitymanagement.uniman.security.util;
 
 import al.edu.fti.universitymanagement.uniman.core.user.dto.UserDto;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.impl.TextCodec;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.spec.SecretKeySpec;

@@ -1,7 +1,7 @@
-package al.edu.fti.universitymanagement.uniman.core.security.provider;
+package al.edu.fti.universitymanagement.uniman.security.provider;
 
-import al.edu.fti.universitymanagement.uniman.core.security.user.FtiUser;
-import al.edu.fti.universitymanagement.uniman.core.security.util.SecurityUtil;
+import al.edu.fti.universitymanagement.uniman.security.user.FtiUser;
+import al.edu.fti.universitymanagement.uniman.security.util.SecurityUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;

@@ -1,8 +1,9 @@
 package al.edu.fti.universitymanagement.uniman.core.user.entity;
 
 import al.edu.fti.universitymanagement.base.core.entity.BaseEntity;
-import al.edu.fti.universitymanagement.uniman.core.enums.Gender;
-import al.edu.fti.universitymanagement.uniman.core.enums.Role;
+import al.edu.fti.universitymanagement.uniman.core.user.enums.Gender;
+import al.edu.fti.universitymanagement.uniman.core.user.enums.Role;
+import al.edu.fti.universitymanagement.uniman.core.userCourse.entity.UserCourseEntity;
 import lombok.Data;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
@@ -10,6 +11,7 @@ import org.hibernate.annotations.Where;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @Entity
@@ -30,6 +32,8 @@ public class UserEntity extends BaseEntity {
     private LocalDateTime registrationDate;
     private String password;
 
+    @OneToMany(fetch = FetchType.EAGER)
+    private List<UserCourseEntity> userCourseEntities;
 
     public UserEntity(){
         super.setActive(true);

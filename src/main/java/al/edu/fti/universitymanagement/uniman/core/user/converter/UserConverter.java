@@ -1,8 +1,8 @@
 package al.edu.fti.universitymanagement.uniman.core.user.converter;
 
 import al.edu.fti.universitymanagement.base.core.converter.BaseConverter;
-import al.edu.fti.universitymanagement.uniman.core.enums.Gender;
-import al.edu.fti.universitymanagement.uniman.core.enums.Role;
+import al.edu.fti.universitymanagement.uniman.core.user.enums.Gender;
+import al.edu.fti.universitymanagement.uniman.core.user.enums.Role;
 import al.edu.fti.universitymanagement.uniman.core.user.dto.UserDto;
 import al.edu.fti.universitymanagement.uniman.core.user.entity.UserEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;

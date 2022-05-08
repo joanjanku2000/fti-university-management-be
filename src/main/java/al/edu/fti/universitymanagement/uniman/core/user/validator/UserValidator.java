@@ -2,15 +2,13 @@ package al.edu.fti.universitymanagement.uniman.core.user.validator;
 
 import al.edu.fti.universitymanagement.base.core.enums.Operation;
 import al.edu.fti.universitymanagement.base.core.validator.BaseValidator;
-import al.edu.fti.universitymanagement.base.core.validator.exceptions.BadRequestException;
 import al.edu.fti.universitymanagement.base.core.validator.exceptions.NotAllowedException;
-import al.edu.fti.universitymanagement.uniman.core.security.util.SecurityUtil;
+import al.edu.fti.universitymanagement.uniman.security.util.SecurityUtil;
 import al.edu.fti.universitymanagement.uniman.core.user.UserService;
 import al.edu.fti.universitymanagement.uniman.core.user.dto.UserDto;
 import al.edu.fti.universitymanagement.uniman.core.user.entity.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import static al.edu.fti.universitymanagement.base.core.enums.Operation.DELETE;

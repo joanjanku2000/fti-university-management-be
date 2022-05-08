@@ -1,17 +1,14 @@
-package al.edu.fti.universitymanagement.uniman.core.security.api;
+package al.edu.fti.universitymanagement.uniman.security.api;
 
-import al.edu.fti.universitymanagement.uniman.core.security.util.JwtUtil;
-import al.edu.fti.universitymanagement.uniman.core.security.util.SecurityUtil;
+import al.edu.fti.universitymanagement.uniman.security.util.JwtUtil;
+import al.edu.fti.universitymanagement.uniman.security.util.SecurityUtil;
 import al.edu.fti.universitymanagement.uniman.core.user.UserService;
 import al.edu.fti.universitymanagement.uniman.core.user.dto.UserDto;
-import com.auth0.jwk.*;
 import com.auth0.jwt.JWT;
-import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.auth0.jwt.exceptions.SignatureVerificationException;
 import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
-import com.auth0.jwt.interfaces.JWTVerifier;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -26,9 +23,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.security.interfaces.RSAPublicKey;
 import java.util.Map;
 
 @Slf4j

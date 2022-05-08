@@ -1,7 +1,7 @@
-package al.edu.fti.universitymanagement.uniman.core.security.util;
+package al.edu.fti.universitymanagement.uniman.security.util;
 
-import al.edu.fti.universitymanagement.uniman.core.security.user.FtiUser;
-import al.edu.fti.universitymanagement.uniman.core.security.user.LoginResponse;
+import al.edu.fti.universitymanagement.uniman.security.user.FtiUser;
+import al.edu.fti.universitymanagement.uniman.security.user.LoginResponse;
 import al.edu.fti.universitymanagement.uniman.core.user.dto.UserDto;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;

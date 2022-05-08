@@ -1,4 +1,4 @@
-package al.edu.fti.universitymanagement.uniman.core.enums;
+package al.edu.fti.universitymanagement.uniman.core.user.enums;
 
 public enum Role {
     STUDENT("Student") , ADMIN("Administrator");
