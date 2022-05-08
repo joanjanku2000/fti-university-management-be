@@ -4,6 +4,7 @@ import al.edu.fti.universitymanagement.uniman.core.security.user.FtiUser;
 import al.edu.fti.universitymanagement.uniman.core.security.user.LoginResponse;
 import al.edu.fti.universitymanagement.uniman.core.user.dto.UserDto;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collections;
@@ -20,5 +21,9 @@ public class SecurityUtil {
 
     public static LoginResponse toLoginResponse(UserDto userDto, String bearer){
         return new LoginResponse(userDto.getEmail(),Collections.singletonList(userDto.getRole().toString()),bearer);
+    }
+
+    public static FtiUser getLoggedUser(){
+        return (FtiUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
 }

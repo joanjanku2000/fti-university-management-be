@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
 @SQLDelete(sql = "update university_user u set u.active = false where id = ?1")
 public class UserEntity extends BaseEntity {
     private String name;
-    private String email;
+    private String email; // not updatable
     private String lastName;
     private LocalDate birthday;
     private String idNumber;

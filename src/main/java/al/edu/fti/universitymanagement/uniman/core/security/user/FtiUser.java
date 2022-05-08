@@ -55,5 +55,7 @@ public class FtiUser implements UserDetails {
         return true;
     }
 
-
+    public UserDto getUserDto() {
+        return userDto;
+    }
 }
