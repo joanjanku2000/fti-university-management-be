@@ -18,6 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -42,8 +43,6 @@ public class AuthenticationController {
     @CrossOrigin
     @PostMapping("/login")
     public ResponseEntity authenticate(@Valid @RequestBody UserDto request) throws IOException {
-
-
         Authentication authenticationResult;
 
         // TODO REFACTOR + Solve Validation Problems
@@ -73,6 +72,11 @@ public class AuthenticationController {
         log.info("Authentication result {}",(authenticationResult.getPrincipal()));
        return ResponseEntity.ok(SecurityUtil.toLoginResponse(user,token));
 
+    }
+
+    @PostMapping("/logout")
+    public void logout(){
+        SecurityContextHolder.getContext().setAuthentication(null);
     }
 
     private Map<String, Claim> validateToken(String token) {
