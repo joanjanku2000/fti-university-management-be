@@ -6,6 +6,7 @@ import al.edu.fti.universitymanagement.uniman.core.course.entity.CourseEntity;
 import al.edu.fti.universitymanagement.uniman.core.user.entity.UserEntity;
 import lombok.Data;
 import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -14,6 +15,7 @@ import java.util.List;
 @Data
 @Entity @Table(name = "university_comment")
 @SQLDelete(sql = "update university_comment c set c.active = false where c.id = ? ")
+@Where(clause = "active=true")
 public class CommentEntity extends BaseEntity {
 
     private String commentString;
