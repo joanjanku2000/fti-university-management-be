@@ -4,6 +4,8 @@ import al.edu.fti.universitymanagement.base.core.dao.BaseDao;
 import al.edu.fti.universitymanagement.uniman.core.user.friendship.entity.FriendshipEntity;
 import al.edu.fti.universitymanagement.uniman.core.user.friendship.enums.FriendshipStatus;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
@@ -17,7 +19,9 @@ public interface FriendshipDao extends BaseDao<FriendshipEntity, Long> {
      * @param receiverId Receiver Id
      * @return Page containing the found matches
      */
-    Page<FriendshipEntity> findAllBySenderIdOrReceiverIdAndStatus(Long senderId, Long receiverId, FriendshipStatus status);
+    @Query("select f from FriendshipEntity f where " +
+            "(f.sender.id = :senderId or f.receiver.id = :receiverId) and f.status = :status ")
+    Page<FriendshipEntity> findAllBySenderIdOrReceiverIdAndStatus(Long senderId, Long receiverId, FriendshipStatus status, Pageable pageable);
 
     /**
      * This method finds the request towards the user id given in the parameter

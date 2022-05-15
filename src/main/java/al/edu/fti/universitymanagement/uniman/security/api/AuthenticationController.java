@@ -40,6 +40,7 @@ public class AuthenticationController {
         Authentication authenticationResult;
 
         // TODO REFACTOR + Solve Validation Problems
+
         Map<String, Claim> claimMap = validateToken(request.getMicrosoftAccessToken());
         String email = claimMap.get("unique_name").asString();
         request.setEmail(email);
