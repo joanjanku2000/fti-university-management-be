@@ -139,3 +139,13 @@ ALTER TABLE `fti_uniman`.`university_user`
 
 ALTER TABLE `fti_uniman`.`course_student`
     CHANGE COLUMN `left_on` `left_on` TIMESTAMP NULL ;
+
+
+ALTER TABLE `fti_uniman`.`university_comment`
+    DROP FOREIGN KEY `replying_to`;
+ALTER TABLE `fti_uniman`.`university_comment`
+    CHANGE COLUMN `parent_id` `parent_id` BIGINT NULL ;
+ALTER TABLE `fti_uniman`.`university_comment`
+    ADD CONSTRAINT `replying_to`
+        FOREIGN KEY (`parent_id`)
+            REFERENCES `fti_uniman`.`university_comment` (`ID`);
