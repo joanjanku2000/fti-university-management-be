@@ -10,4 +10,5 @@ public class ErrorMessages {
     public static String LIKE_EXISTS = "Like already exists";
     public static String GENERIC_NOT_ALLOWED = "Action not allowed";
     public static String REQUEST_IS_NOT_AVAILABLE = "You have already responded to this request";
+    public static String ANNOUNCEMENTS_ARE_ONLY_ADDED_BY_ADMINS = "Announcements are only created by admin of course/system ";
 }
