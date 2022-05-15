@@ -1,6 +1,6 @@
 package al.edu.fti.universitymanagement.uniman.security;
 
-import al.edu.fti.universitymanagement.uniman.core.user.enums.Role;
+import al.edu.fti.universitymanagement.uniman.core.user.user.enums.Role;
 import al.edu.fti.universitymanagement.uniman.security.filter.JwtTokenFilter;
 import al.edu.fti.universitymanagement.uniman.security.provider.FtiAuthenticationProvider;
 import lombok.RequiredArgsConstructor;

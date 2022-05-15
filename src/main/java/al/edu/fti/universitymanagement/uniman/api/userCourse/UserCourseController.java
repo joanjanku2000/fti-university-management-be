@@ -3,7 +3,7 @@ package al.edu.fti.universitymanagement.uniman.api.userCourse;
 import al.edu.fti.universitymanagement.base.api.BaseController;
 import al.edu.fti.universitymanagement.base.core.dto.RequestDto;
 import al.edu.fti.universitymanagement.base.core.service.BaseService;
-import al.edu.fti.universitymanagement.uniman.core.user.dto.UserDto;
+import al.edu.fti.universitymanagement.uniman.core.user.user.dto.UserDto;
 import al.edu.fti.universitymanagement.uniman.core.userCourse.dto.UserCourseDto;
 import al.edu.fti.universitymanagement.uniman.core.userCourse.entity.UserCourseEntity;
 import al.edu.fti.universitymanagement.uniman.core.userCourse.service.UserCourseService;

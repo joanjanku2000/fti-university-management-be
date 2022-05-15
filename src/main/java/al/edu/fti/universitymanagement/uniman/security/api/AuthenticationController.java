@@ -2,8 +2,8 @@ package al.edu.fti.universitymanagement.uniman.security.api;
 
 import al.edu.fti.universitymanagement.uniman.security.util.JwtUtil;
 import al.edu.fti.universitymanagement.uniman.security.util.SecurityUtil;
-import al.edu.fti.universitymanagement.uniman.core.user.UserService;
-import al.edu.fti.universitymanagement.uniman.core.user.dto.UserDto;
+import al.edu.fti.universitymanagement.uniman.core.user.user.service.UserService;
+import al.edu.fti.universitymanagement.uniman.core.user.user.dto.UserDto;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.auth0.jwt.exceptions.SignatureVerificationException;

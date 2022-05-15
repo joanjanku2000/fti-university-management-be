@@ -2,7 +2,7 @@ package al.edu.fti.universitymanagement.uniman.core.userCourse.entity;
 
 import al.edu.fti.universitymanagement.base.core.entity.BaseEntity;
 import al.edu.fti.universitymanagement.uniman.core.course.entity.CourseEntity;
-import al.edu.fti.universitymanagement.uniman.core.user.entity.UserEntity;
+import al.edu.fti.universitymanagement.uniman.core.user.user.entity.UserEntity;
 import lombok.Data;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;

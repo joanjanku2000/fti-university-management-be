@@ -2,7 +2,7 @@ package al.edu.fti.universitymanagement.uniman.core.userCourse.dto;
 
 import al.edu.fti.universitymanagement.base.core.dto.BaseDto;
 import al.edu.fti.universitymanagement.uniman.core.course.dto.CourseDto;
-import al.edu.fti.universitymanagement.uniman.core.user.dto.UserDto;
+import al.edu.fti.universitymanagement.uniman.core.user.user.dto.UserDto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 

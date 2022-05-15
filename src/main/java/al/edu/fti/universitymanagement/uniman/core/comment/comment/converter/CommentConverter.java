@@ -6,7 +6,7 @@ import al.edu.fti.universitymanagement.uniman.core.comment.comment.dto.CommentDt
 import al.edu.fti.universitymanagement.uniman.core.comment.comment.entity.CommentEntity;
 import al.edu.fti.universitymanagement.uniman.core.course.converter.CourseConverterImpl;
 import al.edu.fti.universitymanagement.uniman.core.course.dao.CourseDao;
-import al.edu.fti.universitymanagement.uniman.core.user.dao.UserDao;
+import al.edu.fti.universitymanagement.uniman.core.user.user.dao.UserDao;
 import al.edu.fti.universitymanagement.uniman.security.util.SecurityUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

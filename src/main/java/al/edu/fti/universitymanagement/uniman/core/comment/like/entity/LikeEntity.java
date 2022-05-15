@@ -2,7 +2,7 @@ package al.edu.fti.universitymanagement.uniman.core.comment.like.entity;
 
 import al.edu.fti.universitymanagement.base.core.entity.BaseEntity;
 import al.edu.fti.universitymanagement.uniman.core.comment.comment.entity.CommentEntity;
-import al.edu.fti.universitymanagement.uniman.core.user.entity.UserEntity;
+import al.edu.fti.universitymanagement.uniman.core.user.user.entity.UserEntity;
 import lombok.Data;
 import org.hibernate.annotations.Where;
 
