@@ -1,9 +1,9 @@
-package al.edu.fti.universitymanagement.uniman.core.comment.converter;
+package al.edu.fti.universitymanagement.uniman.core.comment.comment.converter;
 
 import al.edu.fti.universitymanagement.base.core.converter.BaseConverter;
-import al.edu.fti.universitymanagement.uniman.core.comment.dao.CommentDao;
-import al.edu.fti.universitymanagement.uniman.core.comment.dto.CommentDto;
-import al.edu.fti.universitymanagement.uniman.core.comment.entity.CommentEntity;
+import al.edu.fti.universitymanagement.uniman.core.comment.comment.dao.CommentDao;
+import al.edu.fti.universitymanagement.uniman.core.comment.comment.dto.CommentDto;
+import al.edu.fti.universitymanagement.uniman.core.comment.comment.entity.CommentEntity;
 import al.edu.fti.universitymanagement.uniman.core.course.converter.CourseConverterImpl;
 import al.edu.fti.universitymanagement.uniman.core.course.dao.CourseDao;
 import al.edu.fti.universitymanagement.uniman.core.user.dao.UserDao;
@@ -29,12 +29,6 @@ public class CommentConverter implements BaseConverter<CommentDto, CommentEntity
         commentDto.setComment(baseEntity.getCommentString());
         commentDto.setCourseDto(courseConverter.toDto(baseEntity.getCourseEntity()));
         List<CommentEntity> repliesList = commentDao.findAllByParentId(baseEntity.getId());
-
-//        if (repliesList.isEmpty()){
-//            if (baseEntity.getParent() != null){
-//                commentDto.setReplyingTo(toDto(baseEntity.getParent()));
-//            }
-//        }
 
         if (repliesList.size() > 0){
             List<CommentDto> replies = new ArrayList<>();

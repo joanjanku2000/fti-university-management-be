@@ -1,9 +1,9 @@
-package al.edu.fti.universitymanagement.uniman.core.comment.validator;
+package al.edu.fti.universitymanagement.uniman.core.comment.comment.validator;
 
 import al.edu.fti.universitymanagement.base.core.enums.Operation;
 import al.edu.fti.universitymanagement.base.core.validator.BaseValidator;
-import al.edu.fti.universitymanagement.uniman.core.comment.dto.CommentDto;
-import al.edu.fti.universitymanagement.uniman.core.comment.entity.CommentEntity;
+import al.edu.fti.universitymanagement.uniman.core.comment.comment.dto.CommentDto;
+import al.edu.fti.universitymanagement.uniman.core.comment.comment.entity.CommentEntity;
 import org.springframework.stereotype.Component;
 
 @Component

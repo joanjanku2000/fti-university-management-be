@@ -66,7 +66,6 @@ public abstract class BaseServiceAbstractImpl<E extends BaseEntity, D extends Ba
         baseDao.delete(baseEntity);
         log.info("Deleted entity");
 
-
         return baseConverter.toDto(baseEntity);
     }
 

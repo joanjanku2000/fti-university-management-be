@@ -1,8 +1,7 @@
-package al.edu.fti.universitymanagement.uniman.core.comment.dao;
+package al.edu.fti.universitymanagement.uniman.core.comment.comment.dao;
 
 import al.edu.fti.universitymanagement.base.core.dao.BaseDao;
-import al.edu.fti.universitymanagement.uniman.core.comment.dto.CommentDto;
-import al.edu.fti.universitymanagement.uniman.core.comment.entity.CommentEntity;
+import al.edu.fti.universitymanagement.uniman.core.comment.comment.entity.CommentEntity;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
