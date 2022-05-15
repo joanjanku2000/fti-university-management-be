@@ -1,6 +1,6 @@
 package al.edu.fti.universitymanagement.uniman.security;
 
-import al.edu.fti.universitymanagement.uniman.core.user.enums.Role;
+import al.edu.fti.universitymanagement.uniman.core.user.user.enums.Role;
 import al.edu.fti.universitymanagement.uniman.security.filter.JwtTokenFilter;
 import al.edu.fti.universitymanagement.uniman.security.provider.FtiAuthenticationProvider;
 import lombok.RequiredArgsConstructor;
@@ -46,7 +46,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
         http.authorizeRequests()
-                .antMatchers("/login")
+                .antMatchers("/login", "/swagger-resources/**",
+                        "/swagger-ui.html",
+                        "/v2/api-docs",
+                        "/webjars/**")
                 .permitAll();
 
         http.authorizeRequests()

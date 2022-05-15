@@ -2,8 +2,8 @@ package al.edu.fti.universitymanagement.uniman.api.user;
 
 import al.edu.fti.universitymanagement.base.api.BaseController;
 import al.edu.fti.universitymanagement.base.core.service.BaseService;
-import al.edu.fti.universitymanagement.uniman.core.user.dto.UserDto;
-import al.edu.fti.universitymanagement.uniman.core.user.entity.UserEntity;
+import al.edu.fti.universitymanagement.uniman.core.user.user.dto.UserDto;
+import al.edu.fti.universitymanagement.uniman.core.user.user.entity.UserEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 

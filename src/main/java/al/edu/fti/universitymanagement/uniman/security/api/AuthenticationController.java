@@ -2,8 +2,8 @@ package al.edu.fti.universitymanagement.uniman.security.api;
 
 import al.edu.fti.universitymanagement.uniman.security.util.JwtUtil;
 import al.edu.fti.universitymanagement.uniman.security.util.SecurityUtil;
-import al.edu.fti.universitymanagement.uniman.core.user.UserService;
-import al.edu.fti.universitymanagement.uniman.core.user.dto.UserDto;
+import al.edu.fti.universitymanagement.uniman.core.user.user.service.UserService;
+import al.edu.fti.universitymanagement.uniman.core.user.user.dto.UserDto;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.auth0.jwt.exceptions.SignatureVerificationException;
@@ -40,6 +40,7 @@ public class AuthenticationController {
         Authentication authenticationResult;
 
         // TODO REFACTOR + Solve Validation Problems
+
         Map<String, Claim> claimMap = validateToken(request.getMicrosoftAccessToken());
         String email = claimMap.get("unique_name").asString();
         request.setEmail(email);

@@ -5,8 +5,8 @@ import al.edu.fti.universitymanagement.base.core.dao.BaseDao;
 import al.edu.fti.universitymanagement.base.core.dto.RequestDto;
 import al.edu.fti.universitymanagement.base.core.service.impl.BaseServiceAbstractImpl;
 import al.edu.fti.universitymanagement.base.core.validator.BaseValidator;
-import al.edu.fti.universitymanagement.uniman.core.user.converter.UserConverter;
-import al.edu.fti.universitymanagement.uniman.core.user.dto.UserDto;
+import al.edu.fti.universitymanagement.uniman.core.user.user.converter.UserConverter;
+import al.edu.fti.universitymanagement.uniman.core.user.user.dto.UserDto;
 import al.edu.fti.universitymanagement.uniman.core.userCourse.dao.UserCourseDao;
 import al.edu.fti.universitymanagement.uniman.core.userCourse.dto.UserCourseDto;
 import al.edu.fti.universitymanagement.uniman.core.userCourse.entity.UserCourseEntity;
@@ -50,6 +50,13 @@ public class UserCourseService extends BaseServiceAbstractImpl<UserCourseEntity,
                 .map(userConverter::toDto)
                 .collect(Collectors.toList());
 
+    }
+
+    public Page<UserCourseDto> findCoursesOfUsers(Long userId, RequestDto requestDto){
+        log.info("Finding all courses of  user");
+        return ((UserCourseDao) baseDao)
+                .findAllByUserEntityId(userId, PageRequest.of(requestDto.getPageNumber(), requestDto.getPageSize()))
+                .map(baseConverter::toDto);
     }
 
 }

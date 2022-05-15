@@ -2,8 +2,8 @@ package al.edu.fti.universitymanagement.uniman.core.course.dto;
 
 import al.edu.fti.universitymanagement.base.core.dto.BaseDto;
 import al.edu.fti.universitymanagement.uniman.core.course.entity.CourseEntity;
-import al.edu.fti.universitymanagement.uniman.core.user.dto.UserDto;
-import al.edu.fti.universitymanagement.uniman.core.user.util.CustomZonedDateTimeDeserializer;
+import al.edu.fti.universitymanagement.uniman.core.user.user.dto.UserDto;
+import al.edu.fti.universitymanagement.uniman.core.user.user.util.CustomZonedDateTimeDeserializer;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;

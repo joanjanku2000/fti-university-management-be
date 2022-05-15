@@ -2,7 +2,7 @@ package al.edu.fti.universitymanagement.uniman.security.filter;
 
 import al.edu.fti.universitymanagement.uniman.security.util.JwtUtil;
 import al.edu.fti.universitymanagement.uniman.security.util.SecurityUtil;
-import al.edu.fti.universitymanagement.uniman.core.user.dto.UserDto;
+import al.edu.fti.universitymanagement.uniman.core.user.user.dto.UserDto;
 import com.auth0.jwk.Jwk;
 import com.auth0.jwk.JwkException;
 import com.auth0.jwk.JwkProvider;

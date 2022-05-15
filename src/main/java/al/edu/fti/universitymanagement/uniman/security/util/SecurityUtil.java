@@ -3,7 +3,7 @@ package al.edu.fti.universitymanagement.uniman.security.util;
 import al.edu.fti.universitymanagement.base.core.validator.exceptions.NotAllowedException;
 import al.edu.fti.universitymanagement.uniman.security.user.FtiUser;
 import al.edu.fti.universitymanagement.uniman.security.user.LoginResponse;
-import al.edu.fti.universitymanagement.uniman.core.user.dto.UserDto;
+import al.edu.fti.universitymanagement.uniman.core.user.user.dto.UserDto;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;

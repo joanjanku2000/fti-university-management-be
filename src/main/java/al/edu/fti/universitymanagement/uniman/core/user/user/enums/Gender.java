@@ -1,4 +1,4 @@
-package al.edu.fti.universitymanagement.uniman.core.user.enums;
+package al.edu.fti.universitymanagement.uniman.core.user.user.enums;
 
 public enum Gender {
     MALE("Male") , FEMALE("Female") ;

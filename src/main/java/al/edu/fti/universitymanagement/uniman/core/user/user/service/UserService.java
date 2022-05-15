@@ -1,4 +1,4 @@
-package al.edu.fti.universitymanagement.uniman.core.user;
+package al.edu.fti.universitymanagement.uniman.core.user.user.service;
 
 import al.edu.fti.universitymanagement.base.core.converter.BaseConverter;
 import al.edu.fti.universitymanagement.base.core.dao.BaseDao;
@@ -6,9 +6,9 @@ import al.edu.fti.universitymanagement.base.core.service.impl.BaseServiceAbstrac
 import al.edu.fti.universitymanagement.base.core.validator.BaseValidator;
 import al.edu.fti.universitymanagement.base.core.validator.exceptions.NotFoundException;
 import al.edu.fti.universitymanagement.base.core.validator.exceptions.messages.ErrorMessages;
-import al.edu.fti.universitymanagement.uniman.core.user.dao.UserDao;
-import al.edu.fti.universitymanagement.uniman.core.user.dto.UserDto;
-import al.edu.fti.universitymanagement.uniman.core.user.entity.UserEntity;
+import al.edu.fti.universitymanagement.uniman.core.user.user.dao.UserDao;
+import al.edu.fti.universitymanagement.uniman.core.user.user.dto.UserDto;
+import al.edu.fti.universitymanagement.uniman.core.user.user.entity.UserEntity;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;

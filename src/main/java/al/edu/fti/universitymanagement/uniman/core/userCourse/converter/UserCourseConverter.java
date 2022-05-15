@@ -1,13 +1,12 @@
 package al.edu.fti.universitymanagement.uniman.core.userCourse.converter;
 
 import al.edu.fti.universitymanagement.base.core.converter.BaseConverter;
-import al.edu.fti.universitymanagement.uniman.api.course.CourseController;
 import al.edu.fti.universitymanagement.uniman.core.course.converter.CourseConverterImpl;
 import al.edu.fti.universitymanagement.uniman.core.course.dao.CourseDao;
 import al.edu.fti.universitymanagement.uniman.core.course.entity.CourseEntity;
-import al.edu.fti.universitymanagement.uniman.core.user.converter.UserConverter;
-import al.edu.fti.universitymanagement.uniman.core.user.dao.UserDao;
-import al.edu.fti.universitymanagement.uniman.core.user.entity.UserEntity;
+import al.edu.fti.universitymanagement.uniman.core.user.user.converter.UserConverter;
+import al.edu.fti.universitymanagement.uniman.core.user.user.dao.UserDao;
+import al.edu.fti.universitymanagement.uniman.core.user.user.entity.UserEntity;
 import al.edu.fti.universitymanagement.uniman.core.userCourse.dto.UserCourseDto;
 import al.edu.fti.universitymanagement.uniman.core.userCourse.entity.UserCourseEntity;
 import al.edu.fti.universitymanagement.uniman.security.util.SecurityUtil;
