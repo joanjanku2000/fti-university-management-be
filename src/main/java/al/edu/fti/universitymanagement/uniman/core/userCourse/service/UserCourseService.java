@@ -52,4 +52,11 @@ public class UserCourseService extends BaseServiceAbstractImpl<UserCourseEntity,
 
     }
 
+    public Page<UserCourseDto> findCoursesOfUsers(Long userId, RequestDto requestDto){
+        log.info("Finding all courses of  user");
+        return ((UserCourseDao) baseDao)
+                .findAllByUserEntityId(userId, PageRequest.of(requestDto.getPageNumber(), requestDto.getPageSize()))
+                .map(baseConverter::toDto);
+    }
+
 }

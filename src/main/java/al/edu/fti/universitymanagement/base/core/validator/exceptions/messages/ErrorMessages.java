@@ -9,4 +9,5 @@ public class ErrorMessages {
     public static String STUDENT_IS_ALREADY_PART_OF_THIS_COURSE = "Student is already registered";
     public static String LIKE_EXISTS = "Like already exists";
     public static String GENERIC_NOT_ALLOWED = "Action not allowed";
+    public static String REQUEST_IS_NOT_AVAILABLE = "You have already responded to this request";
 }

@@ -2,6 +2,7 @@ package al.edu.fti.universitymanagement.uniman.core.user.friendship.validator;
 
 import al.edu.fti.universitymanagement.base.core.enums.Operation;
 import al.edu.fti.universitymanagement.base.core.validator.BaseValidator;
+import al.edu.fti.universitymanagement.base.core.validator.exceptions.BadRequestException;
 import al.edu.fti.universitymanagement.base.core.validator.exceptions.NotAllowedException;
 import al.edu.fti.universitymanagement.uniman.core.user.friendship.dao.FriendshipDao;
 import al.edu.fti.universitymanagement.uniman.core.user.friendship.dto.FriendshipDto;
@@ -14,6 +15,8 @@ import org.springframework.stereotype.Component;
 
 import static al.edu.fti.universitymanagement.base.core.enums.Operation.*;
 import static al.edu.fti.universitymanagement.base.core.validator.exceptions.messages.ErrorMessages.GENERIC_NOT_ALLOWED;
+import static al.edu.fti.universitymanagement.base.core.validator.exceptions.messages.ErrorMessages.REQUEST_IS_NOT_AVAILABLE;
+import static al.edu.fti.universitymanagement.uniman.core.user.friendship.enums.FriendshipStatus.PENDING;
 
 @RequiredArgsConstructor
 @Component
@@ -26,6 +29,8 @@ public class FriendshipValidator implements BaseValidator<FriendshipDto, Friends
      * This method validates if logged user is actually trying to send the friendship request
      * and more importantly if the receiver of the friendship requests is actually the one
      * accepting or declining it
+     * - Checks if request status is different from PENDING meaning user has already responded
+     * to the request
      * @param dto FriendshipDto
      * @param operation Operation Type
      * @throws NotAllowedException
@@ -44,6 +49,9 @@ public class FriendshipValidator implements BaseValidator<FriendshipDto, Friends
             FriendshipEntity friendshipEntity = friendshipDao.getById(dto.getId());
             if (friendshipEntity.getReceiver().getId().equals(loggedUser.getId()) == Boolean.FALSE) {
                 throw new NotAllowedException(GENERIC_NOT_ALLOWED);
+            }
+            if (friendshipEntity.getStatus() != PENDING){
+                throw new BadRequestException(REQUEST_IS_NOT_AVAILABLE);
             }
         }
 
