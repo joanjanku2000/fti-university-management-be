@@ -6,6 +6,7 @@ import al.edu.fti.universitymanagement.uniman.core.user.friendship.enums.Friends
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -30,4 +31,13 @@ public interface FriendshipDao extends BaseDao<FriendshipEntity, Long> {
      * @return A List containing the friendship requests
      */
     List<FriendshipEntity> findAllByReceiverIdAndStatus(Long receiverId, FriendshipStatus status);
+
+    @Query(
+            "select case when count(f) > 0 " +
+                        "then true " +
+                            "ELSE false END " +
+                        "from FriendshipEntity f " +
+                            "where f.sender.id = :senderId and f.receiver.id = :receiverId"
+    )
+    Boolean requestExists(@Param("senderId") Long senderId, @Param("receiverId") Long receiverId);
 }

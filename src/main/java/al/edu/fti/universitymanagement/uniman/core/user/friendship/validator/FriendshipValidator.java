@@ -14,8 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import static al.edu.fti.universitymanagement.base.core.enums.Operation.*;
-import static al.edu.fti.universitymanagement.base.core.validator.exceptions.messages.ErrorMessages.GENERIC_NOT_ALLOWED;
-import static al.edu.fti.universitymanagement.base.core.validator.exceptions.messages.ErrorMessages.REQUEST_IS_NOT_AVAILABLE;
+import static al.edu.fti.universitymanagement.base.core.validator.exceptions.messages.ErrorMessages.*;
 import static al.edu.fti.universitymanagement.uniman.core.user.friendship.enums.FriendshipStatus.PENDING;
 
 @RequiredArgsConstructor
@@ -42,6 +41,9 @@ public class FriendshipValidator implements BaseValidator<FriendshipDto, Friends
         if (operation == CREATE) {
             if (dto.getSender()!= null && dto.getSender().getId().equals(loggedUser.getId()) == Boolean.FALSE) {
                 throw new NotAllowedException(GENERIC_NOT_ALLOWED);
+            }
+            if (friendshipDao.requestExists(SecurityUtil.getLoggedUser().getUserDto().getId(),dto.getReceiver().getId())){
+                throw new NotAllowedException(REQUEST_EXISTS);
             }
         }
 
@@ -71,7 +73,7 @@ public class FriendshipValidator implements BaseValidator<FriendshipDto, Friends
 
         if (operation == DELETE) {
             if (entity.getReceiver().getId().equals(loggedUser.getId()) == Boolean.FALSE
-                        || entity.getSender().getId().equals(loggedUser.getId()) == Boolean.FALSE) {
+                        && entity.getSender().getId().equals(loggedUser.getId()) == Boolean.FALSE) {
                 throw new NotAllowedException(GENERIC_NOT_ALLOWED);
             }
         }
