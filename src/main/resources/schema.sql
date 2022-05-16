@@ -149,3 +149,18 @@ ALTER TABLE `fti_uniman`.`university_comment`
     ADD CONSTRAINT `replying_to`
         FOREIGN KEY (`parent_id`)
             REFERENCES `fti_uniman`.`university_comment` (`ID`);
+
+
+alter table notification_user drop foreign key notif_fk;
+
+drop index notif_fk on notification_user;
+
+alter table notification_user drop column type_id;
+
+drop table notification;
+
+alter table notification_user
+    add type int null;
+
+
+
