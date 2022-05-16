@@ -3,19 +3,39 @@ package al.edu.fti.universitymanagement.uniman.core.notifications.notification.c
 import al.edu.fti.universitymanagement.base.core.converter.BaseConverter;
 import al.edu.fti.universitymanagement.uniman.core.notifications.notification.dto.NotificationDto;
 import al.edu.fti.universitymanagement.uniman.core.notifications.notification.entity.NotificationEntity;
+import al.edu.fti.universitymanagement.uniman.core.user.user.converter.UserConverter;
+import al.edu.fti.universitymanagement.uniman.core.user.user.dao.UserDao;
+import al.edu.fti.universitymanagement.uniman.core.user.user.entity.UserEntity;
+import al.edu.fti.universitymanagement.uniman.security.util.SecurityUtil;
+import lombok.RequiredArgsConstructor;
+import org.apache.tomcat.util.modeler.NotificationInfo;
 import org.springframework.stereotype.Component;
 
+@RequiredArgsConstructor
 @Component
 public class NotificationConverter implements BaseConverter<NotificationDto, NotificationEntity> {
-
+    private final UserConverter userConverter;
+    private final UserDao userDao;
     @Override
     public NotificationDto toDto(NotificationEntity baseEntity) {
-        return null;
+        NotificationDto notificationDto = new NotificationDto();
+        notificationDto.setId(baseEntity.getId());
+        notificationDto.setMessage(baseEntity.getMessage());
+        notificationDto.setNotificationType(baseEntity.getType());
+        notificationDto.setUser(userConverter.toDto(baseEntity.getTarget()));
+        return notificationDto;
     }
 
     @Override
     public NotificationEntity toEntity(NotificationDto baseDto) {
-        return null;
+        NotificationEntity notificationEntity = new NotificationEntity();
+        UserEntity loggedUserAkaNotifiedBy = userDao.getById(SecurityUtil.getLoggedUser().getUserDto().getId());
+        UserEntity target = userDao.getById(baseDto.getUser().getId());
+        notificationEntity.setMessage(baseDto.getMessage());
+        notificationEntity.setTarget(target);
+        notificationEntity.setNotifiedBy(loggedUserAkaNotifiedBy);
+        notificationEntity.setType(baseDto.getNotificationType());
+        return notificationEntity;
     }
 
     @Override

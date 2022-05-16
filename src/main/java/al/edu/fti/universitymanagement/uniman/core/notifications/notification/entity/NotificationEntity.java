@@ -25,4 +25,8 @@ public class NotificationEntity extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "user_id",referencedColumnName = "id")
     private UserEntity target;
+
+    @ManyToOne
+    @JoinColumn(name = "notifier",referencedColumnName = "id")
+    private UserEntity notifiedBy;
 }

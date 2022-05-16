@@ -162,5 +162,12 @@ drop table notification;
 alter table notification_user
     add type int null;
 
+alter table notification_user
+    add notifier bigint null;
+
+alter table notification_user
+    add constraint notification_user_university_user_ID_fk
+        foreign key (notifier) references university_user (ID);
+
 
 

@@ -3,6 +3,7 @@ package al.edu.fti.universitymanagement.uniman.core.user.user.entity;
 import al.edu.fti.universitymanagement.base.core.entity.BaseEntity;
 import al.edu.fti.universitymanagement.uniman.core.user.user.enums.Gender;
 import al.edu.fti.universitymanagement.uniman.core.user.user.enums.Role;
+import antlr.StringUtils;
 import lombok.Data;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
@@ -32,6 +33,10 @@ public class UserEntity extends BaseEntity {
 
     public UserEntity(){
         super.setActive(true);
+    }
+
+    public String getFullName(){
+        return name + " " + lastName;
     }
 
 }
