@@ -40,4 +40,8 @@ public interface FriendshipDao extends BaseDao<FriendshipEntity, Long> {
                             "where f.sender.id = :senderId and f.receiver.id = :receiverId"
     )
     Boolean requestExists(@Param("senderId") Long senderId, @Param("receiverId") Long receiverId);
+
+    @Query("select f from FriendshipEntity f where " +
+            "(f.sender.id = :senderId or f.receiver.id = :receiverId) and f.status = :status ")
+    List<FriendshipEntity> findAllBySenderIdOrReceiverIdAndStatus(Long senderId, Long receiverId, FriendshipStatus status);
 }

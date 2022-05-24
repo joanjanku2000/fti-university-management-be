@@ -8,9 +8,11 @@ import al.edu.fti.universitymanagement.uniman.core.user.user.dao.UserDao;
 import al.edu.fti.universitymanagement.uniman.core.user.user.entity.UserEntity;
 import al.edu.fti.universitymanagement.uniman.security.util.SecurityUtil;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.tomcat.util.modeler.NotificationInfo;
 import org.springframework.stereotype.Component;
 
+@Slf4j
 @RequiredArgsConstructor
 @Component
 public class NotificationConverter implements BaseConverter<NotificationDto, NotificationEntity> {
@@ -35,6 +37,7 @@ public class NotificationConverter implements BaseConverter<NotificationDto, Not
         notificationEntity.setTarget(target);
         notificationEntity.setNotifiedBy(loggedUserAkaNotifiedBy);
         notificationEntity.setType(baseDto.getNotificationType());
+        log.info("Notification converting done {}",notificationEntity);
         return notificationEntity;
     }
 

@@ -1,7 +1,11 @@
 package al.edu.fti.universitymanagement.uniman.core.notifications.aspect;
 
+import al.edu.fti.universitymanagement.uniman.core.comment.comment.dto.CommentDto;
+import al.edu.fti.universitymanagement.uniman.core.comment.comment.enums.CommentType;
+import al.edu.fti.universitymanagement.uniman.core.comment.comment.service.CommentService;
 import al.edu.fti.universitymanagement.uniman.core.notifications.notification.dto.NotificationDto;
 import al.edu.fti.universitymanagement.uniman.core.notifications.notification.enums.NotificationMessage;
+import al.edu.fti.universitymanagement.uniman.core.notifications.notification.enums.NotificationType;
 import al.edu.fti.universitymanagement.uniman.core.notifications.notification.service.NotificationService;
 import al.edu.fti.universitymanagement.uniman.core.user.friendship.dao.FriendshipDao;
 import al.edu.fti.universitymanagement.uniman.core.user.friendship.dto.FriendshipDto;
@@ -9,32 +13,35 @@ import al.edu.fti.universitymanagement.uniman.core.user.friendship.entity.Friend
 import al.edu.fti.universitymanagement.uniman.core.user.friendship.service.FriendshipService;
 import al.edu.fti.universitymanagement.uniman.core.user.user.converter.UserConverter;
 import al.edu.fti.universitymanagement.uniman.core.user.user.dao.UserDao;
-import al.edu.fti.universitymanagement.uniman.core.user.user.dto.UserDto;
 import al.edu.fti.universitymanagement.uniman.core.user.user.entity.UserEntity;
 import al.edu.fti.universitymanagement.uniman.security.util.SecurityUtil;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
+import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
+import static al.edu.fti.universitymanagement.uniman.core.notifications.notification.enums.NotificationMessage.getTypeMessageExcludingFriendshipMap;
 import static al.edu.fti.universitymanagement.uniman.core.notifications.notification.enums.NotificationType.FRIEND_REQUEST;
+import static al.edu.fti.universitymanagement.uniman.core.user.friendship.enums.FriendshipStatus.FRIENDS;
 
 @Slf4j
 @Aspect
 @Configuration
+@RequiredArgsConstructor
 public class FriendshipRequestAspect {
 
-    @Autowired
-    private NotificationService notificationService;
-    @Autowired
-    private UserDao userDao;
-    @Autowired
-    private UserConverter userConverter;
-    @Autowired
-    private FriendshipDao friendshipDao;
+    private final NotificationService notificationService;
+    private final UserDao userDao;
+    private final UserConverter userConverter;
+    private final FriendshipDao friendshipDao;
 
     @AfterReturning("execution(* al.edu.fti.universitymanagement.base.core.service.impl.BaseServiceAbstractImpl.*(..)) " +
             "|| execution(* al.edu.fti.universitymanagement.base.core.service.impl.BaseServiceAbstractImpl.*(..))")
@@ -51,7 +58,7 @@ public class FriendshipRequestAspect {
                     FriendshipDto friendshipDto = (FriendshipDto) arguments[0];
                     FriendshipEntity friendshipEntity = friendshipDao.getById(friendshipDto.getId());
                     UserEntity toBeNotifiedAkaTarget = userDao.getById(friendshipEntity.getReceiver().getId());
-                    log.debug("To be notified {}",toBeNotifiedAkaTarget.getFullName());
+                    log.debug("To be notified {}", toBeNotifiedAkaTarget.getFullName());
                     UserEntity loggedUserAkaNotifiedBy = userDao.getById(SecurityUtil.getLoggedUser().getUserDto().getId());
 
                     NotificationDto notificationDto = new NotificationDto();
@@ -72,7 +79,7 @@ public class FriendshipRequestAspect {
                     FriendshipDto friendshipDto = (FriendshipDto) arguments[0];
                     FriendshipEntity friendshipEntity = friendshipDao.getById(friendshipDto.getId());
                     UserEntity toBeNotifiedAkaTarget = userDao.getById(friendshipEntity.getSender().getId());
-                    log.debug("To be notified {}",toBeNotifiedAkaTarget.getFullName());
+                    log.debug("To be notified {}", toBeNotifiedAkaTarget.getFullName());
                     UserEntity loggedUserAkaNotifiedBy = userDao.getById(SecurityUtil.getLoggedUser().getUserDto().getId());
 
                     NotificationDto notificationDto = new NotificationDto();
@@ -80,14 +87,75 @@ public class FriendshipRequestAspect {
                     notificationDto.setUser(userConverter.toDto(toBeNotifiedAkaTarget));
 
                     notificationDto.setMessage(NotificationMessage
-                            .getUserRespondedToYourFriendRequest(loggedUserAkaNotifiedBy.getFullName(),friendshipDto.getFriendshipStatus().name()));
+                            .getUserRespondedToYourFriendRequest(loggedUserAkaNotifiedBy.getFullName(), friendshipDto.getFriendshipStatus().name()));
 
                     notificationService.save(notificationDto);
                     log.info("End of aspect execution,notification of type friendship request saved to db");
                 }
             }
         }
+    }
 
+    @AfterReturning("execution(* al.edu.fti.universitymanagement.base.core.service.impl.BaseServiceAbstractImpl.*(..)) " +
+            "|| execution(* al.edu.fti.universitymanagement.base.core.service.impl.BaseServiceAbstractImpl.*(..))")
+    public void timelineUpdateNotification(JoinPoint joinPoint) throws Throwable {
+        Object target = joinPoint.getTarget();
+        Object[] arguments = joinPoint.getArgs();
+        if (target instanceof CommentService) {
+
+            if (((MethodSignature) joinPoint.getSignature()).getMethod().getName().contains("save")) {
+                log.info(
+                        "Timeline update, notifying friends of user"
+                );
+
+                if (arguments.length == 1) {
+                    CommentDto commentDto = (CommentDto) arguments[0];
+                    if (commentDto.getUserDto() != null) {
+                        UserEntity userEntity = userDao.getById(commentDto.getUserDto().getId());
+                        List<UserEntity> friendsOfUser =
+                                friendshipDao
+                                        .findAllBySenderIdOrReceiverIdAndStatus(userEntity.getId()
+                                                , userEntity.getId(), FRIENDS)
+                                        .stream().map(f -> !f.getSender().getId()
+                                        .equals(userEntity.getId()) ? f.getSender()
+                                        : f.getReceiver())
+                                        .distinct()
+                                        .filter(u -> !u.equals(userEntity))
+                                        .collect(Collectors.toList());
+
+                        List<NotificationDto> notificationDtos =
+                                friendsOfUser.stream().map(friend ->
+                                        createNotification(userEntity, friend, NotificationType.POST_UPDATE))
+                                        .collect(Collectors.toList());
+                        notificationDtos.forEach(notificationService::save);
+                    }
+                }
+
+            }
+        }
+
+    }
+
+    /**
+     * This method creates a notification DTO and persists it to database
+     * by taking into consideration the sender,receiver and notification type
+     * and accordingly calculating the necessary payload except FriendshipRequest
+     * (they are handed differently)
+     *
+     * @param notifiedBy       UserEntity
+     * @param target           UserEntity
+     * @param notificationType NotificationType
+     * @return NotificationDto
+     */
+    private NotificationDto createNotification(UserEntity notifiedBy, UserEntity target, NotificationType notificationType) {
+        log.info("Creating notification {} {} {}", notifiedBy.getFullName(), target.getFullName(), notificationType);
+        NotificationDto notificationDto = new NotificationDto();
+        notificationDto.setNotificationType(notificationType);
+        notificationDto.setMessage(getTypeMessageExcludingFriendshipMap()
+                .get(notificationType).replace(":user", notifiedBy.getFullName()));
+        notificationDto.setUser(userConverter.toDto(target));
+        return notificationDto;
 
     }
 }
+
