@@ -63,7 +63,7 @@ public class CommentConverter implements BaseConverter<CommentDto, CommentEntity
         CommentEntity replyingTo = null;
 
         CommentEntity commentEntity = new CommentEntity();
-        commentEntity.setUserEntity(userDao.getById(SecurityUtil.getLoggedUser().getUserDto().getId()));
+        commentEntity.setUserEntity(userDao.getById(baseDto.getUserDto().getId()));
 
         if (baseDto.getReplyingTo() == null) {
             if (baseDto.getCommentType() != CommentType.TIMELINE)

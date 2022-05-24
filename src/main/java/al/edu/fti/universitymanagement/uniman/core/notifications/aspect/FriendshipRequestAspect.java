@@ -1,6 +1,7 @@
 package al.edu.fti.universitymanagement.uniman.core.notifications.aspect;
 
 import al.edu.fti.universitymanagement.uniman.core.comment.comment.dto.CommentDto;
+import al.edu.fti.universitymanagement.uniman.core.comment.comment.enums.CommentType;
 import al.edu.fti.universitymanagement.uniman.core.comment.comment.service.CommentService;
 import al.edu.fti.universitymanagement.uniman.core.notifications.notification.dto.NotificationDto;
 import al.edu.fti.universitymanagement.uniman.core.notifications.notification.enums.NotificationMessage;
@@ -14,16 +15,14 @@ import al.edu.fti.universitymanagement.uniman.core.user.user.converter.UserConve
 import al.edu.fti.universitymanagement.uniman.core.user.user.dao.UserDao;
 import al.edu.fti.universitymanagement.uniman.core.user.user.entity.UserEntity;
 import al.edu.fti.universitymanagement.uniman.security.util.SecurityUtil;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.List;
@@ -36,16 +35,13 @@ import static al.edu.fti.universitymanagement.uniman.core.user.friendship.enums.
 @Slf4j
 @Aspect
 @Configuration
+@RequiredArgsConstructor
 public class FriendshipRequestAspect {
 
-    @Autowired
-    private NotificationService notificationService;
-    @Autowired
-    private UserDao userDao;
-    @Autowired
-    private UserConverter userConverter;
-    @Autowired
-    private FriendshipDao friendshipDao;
+    private final NotificationService notificationService;
+    private final UserDao userDao;
+    private final UserConverter userConverter;
+    private final FriendshipDao friendshipDao;
 
     @AfterReturning("execution(* al.edu.fti.universitymanagement.base.core.service.impl.BaseServiceAbstractImpl.*(..)) " +
             "|| execution(* al.edu.fti.universitymanagement.base.core.service.impl.BaseServiceAbstractImpl.*(..))")
@@ -100,9 +96,9 @@ public class FriendshipRequestAspect {
         }
     }
 
-    @Around("execution(* al.edu.fti.universitymanagement.base.core.service.impl.BaseServiceAbstractImpl.*(..)) " +
+    @AfterReturning("execution(* al.edu.fti.universitymanagement.base.core.service.impl.BaseServiceAbstractImpl.*(..)) " +
             "|| execution(* al.edu.fti.universitymanagement.base.core.service.impl.BaseServiceAbstractImpl.*(..))")
-    public void timelineUpdateNotification(ProceedingJoinPoint joinPoint) throws Throwable {
+    public void timelineUpdateNotification(JoinPoint joinPoint) throws Throwable {
         Object target = joinPoint.getTarget();
         Object[] arguments = joinPoint.getArgs();
         if (target instanceof CommentService) {
@@ -113,24 +109,26 @@ public class FriendshipRequestAspect {
                 );
 
                 if (arguments.length == 1) {
-                    CommentDto commentDto = (CommentDto) joinPoint.proceed();
-                    UserEntity userEntity = userDao.getById(commentDto.getUserDto().getId());
-                    List<UserEntity> friendsOfUser =
-                            friendshipDao
-                                    .findAllBySenderIdOrReceiverIdAndStatus(userEntity.getId()
-                                            , userEntity.getId(), FRIENDS)
-                                    .stream().map(f -> !f.getSender().getId()
-                                    .equals(userEntity.getId()) ? f.getSender()
-                                    : f.getReceiver())
-                                    .distinct()
-                                    .filter(u -> !u.equals(userEntity))
-                                    .collect(Collectors.toList());
+                    CommentDto commentDto = (CommentDto) arguments[0];
+                    if (commentDto.getUserDto() != null) {
+                        UserEntity userEntity = userDao.getById(commentDto.getUserDto().getId());
+                        List<UserEntity> friendsOfUser =
+                                friendshipDao
+                                        .findAllBySenderIdOrReceiverIdAndStatus(userEntity.getId()
+                                                , userEntity.getId(), FRIENDS)
+                                        .stream().map(f -> !f.getSender().getId()
+                                        .equals(userEntity.getId()) ? f.getSender()
+                                        : f.getReceiver())
+                                        .distinct()
+                                        .filter(u -> !u.equals(userEntity))
+                                        .collect(Collectors.toList());
 
-                    List<NotificationDto> notificationDtos =
-                            friendsOfUser.stream().map(friend ->
-                                    createNotification(userEntity, friend, NotificationType.POST_UPDATE))
-                                    .collect(Collectors.toList());
-                    notificationDtos.forEach(notif -> notificationService.save(notif));
+                        List<NotificationDto> notificationDtos =
+                                friendsOfUser.stream().map(friend ->
+                                        createNotification(userEntity, friend, NotificationType.POST_UPDATE))
+                                        .collect(Collectors.toList());
+                        notificationDtos.forEach(notificationService::save);
+                    }
                 }
 
             }
