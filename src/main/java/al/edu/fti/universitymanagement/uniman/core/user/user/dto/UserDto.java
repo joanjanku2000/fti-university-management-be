@@ -1,6 +1,7 @@
 package al.edu.fti.universitymanagement.uniman.core.user.user.dto;
 
 import al.edu.fti.universitymanagement.base.core.dto.BaseDto;
+import al.edu.fti.universitymanagement.base.core.validator.exceptions.BadRequestException;
 import al.edu.fti.universitymanagement.uniman.core.user.user.enums.Role;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
@@ -25,4 +26,11 @@ public class UserDto extends BaseDto {
     @JsonIgnore
     private String password;
     private String microsoftAccessToken;
+
+    public String getFullName(){
+        if (name != null && lastName != null){
+            return name + " " + lastName;
+        }
+        throw new BadRequestException("User does not have full name");
+    }
 }

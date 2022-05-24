@@ -7,6 +7,7 @@ import al.edu.fti.universitymanagement.uniman.core.comment.comment.entity.Commen
 import al.edu.fti.universitymanagement.uniman.core.comment.comment.enums.CommentType;
 import al.edu.fti.universitymanagement.uniman.core.course.converter.CourseConverterImpl;
 import al.edu.fti.universitymanagement.uniman.core.course.dao.CourseDao;
+import al.edu.fti.universitymanagement.uniman.core.user.user.converter.UserConverter;
 import al.edu.fti.universitymanagement.uniman.core.user.user.dao.UserDao;
 import al.edu.fti.universitymanagement.uniman.security.util.SecurityUtil;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +23,7 @@ public class CommentConverter implements BaseConverter<CommentDto, CommentEntity
     private final CourseDao courseDao;
     private final CommentDao commentDao;
     private final UserDao userDao;
+    private final UserConverter userConverter;
 
     @Override
     public CommentDto toDto(CommentEntity baseEntity) {
@@ -29,7 +31,7 @@ public class CommentConverter implements BaseConverter<CommentDto, CommentEntity
         commentDto.setId(baseEntity.getId());
         commentDto.setComment(baseEntity.getCommentString());
         commentDto.setCommentType(baseEntity.getType());
-
+        commentDto.setUserDto(userConverter.toDto(baseEntity.getUserEntity()));
         if (baseEntity.getCourseEntity()!=null && baseEntity.getType() != CommentType.TIMELINE)
             commentDto.setCourseDto(courseConverter.toDto(baseEntity.getCourseEntity()));
 
