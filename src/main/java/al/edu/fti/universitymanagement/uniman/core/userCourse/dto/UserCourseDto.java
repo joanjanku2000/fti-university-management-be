@@ -11,9 +11,7 @@ import java.time.LocalDateTime;
 @Data
 public class UserCourseDto extends BaseDto {
 
-    @JsonIgnore
     private UserDto userDto;
-
     private CourseDto courseDto;
     private LocalDateTime joinedOn;
 }

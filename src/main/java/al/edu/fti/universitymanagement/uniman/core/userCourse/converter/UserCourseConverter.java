@@ -33,7 +33,7 @@ public class UserCourseConverter implements BaseConverter< UserCourseDto, UserCo
 
     @Override
     public UserCourseEntity toEntity(UserCourseDto baseDto) {
-        UserEntity userEntity = userDao.getById(SecurityUtil.getLoggedUser().getUserDto().getId());
+        UserEntity userEntity = userDao.getById(baseDto.getUserDto().getId());
         CourseEntity courseEntity = courseDao.getById(baseDto.getCourseDto().getId());
 
         UserCourseEntity userCourseEntity = new UserCourseEntity();
