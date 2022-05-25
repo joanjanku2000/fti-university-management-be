@@ -8,6 +8,10 @@ import al.edu.fti.universitymanagement.uniman.core.user.user.entity.UserEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
+/**
+ * Converter Component Class to make the neccessary conversions
+ * between Entity And Dto representation of it
+ */
 @Component
 public class UserConverter implements BaseConverter<UserDto, UserEntity> {
 

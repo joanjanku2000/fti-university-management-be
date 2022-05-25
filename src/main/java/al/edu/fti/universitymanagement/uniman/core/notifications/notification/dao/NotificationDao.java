@@ -6,6 +6,5 @@ import al.edu.fti.universitymanagement.uniman.core.notifications.notification.en
 import java.util.List;
 
 public interface NotificationDao extends BaseDao<NotificationEntity, Long> {
-
     List<NotificationEntity> findAllByTargetId(Long id);
 }

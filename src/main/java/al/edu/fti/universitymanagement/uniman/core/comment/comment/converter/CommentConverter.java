@@ -16,6 +16,10 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Converter Component Class to make the neccessary conversions
+ * between Entity And Dto representation of it
+ */
 @Component @RequiredArgsConstructor
 public class CommentConverter implements BaseConverter<CommentDto, CommentEntity> {
 

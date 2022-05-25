@@ -24,6 +24,13 @@ public class UserValidator implements BaseValidator<UserDto, UserEntity> {
     @Autowired
     private UserService userService;
 
+    /**
+     * Validator method to check if logged user is the one updating the target
+     * Allows only user himself to update his/her profile
+     * @param dto UserDto
+     * @param operation Operation
+     * @throws NotAllowedException when the user trying to do this action is not targeting him/her self for update
+     */
     @Override
     public void validate(UserDto dto, Operation operation) {
         if (operation == UPDATE) {
@@ -38,6 +45,12 @@ public class UserValidator implements BaseValidator<UserDto, UserEntity> {
         }
     }
 
+    /**
+     * Validates if user himself is trying to commit dhe delete operation
+     * @param entity UserEntity
+     * @param operation Operation
+     * @throws NotAllowedException if logged user is not doing the action for himself
+     */
     @Override
     public void validate(UserEntity entity, Operation operation) {
         if (operation == DELETE) {

@@ -22,6 +22,14 @@ public class UserCourseValidator implements BaseValidator<UserCourseDto, UserCou
 
     private final UserCourseDao userCourseDao;
 
+    /**
+     * Validates operation if
+     * 1) Logged user corresponds with the one being passed in the argument (security reasons)
+     * 2) Student is already part of the course
+     * @param dto UserCourseDto
+     * @param operation Operation
+     * @throws BadRequestException if user in the dto is not the logged user or if Student already has joined the course
+     */
     @Override
     public void validate(UserCourseDto dto, Operation operation) {
         Long loggedUserId = SecurityUtil.getLoggedUser().getUserDto().getId();
@@ -38,6 +46,14 @@ public class UserCourseValidator implements BaseValidator<UserCourseDto, UserCou
 
     }
 
+    /**
+     * Validates operation if
+     * 1) Logged user corresponds with the one being passed in the argument (security reasons)
+     * 2) Student is already part of the course
+     * @param entity UserCourseEntity
+     * @param operation Operation
+     * @throws NotAllowedException if logged user is not doing the action for himself
+     */
     @Override
     public void validate(UserCourseEntity entity, Operation operation) {
         if (operation == DELETE){

@@ -19,6 +19,10 @@ import org.springframework.stereotype.Service;
 
 import java.util.stream.Collectors;
 
+/**
+ * Converter Component Class to make the neccessary conversions
+ * between Entity And Dto representation of it
+ */
 @Slf4j
 @RequiredArgsConstructor
 @Service

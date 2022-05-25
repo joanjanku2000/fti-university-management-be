@@ -25,6 +25,11 @@ public class FriendshipService extends BaseServiceAbstractImpl<FriendshipEntity,
     }
 
 
+    /**
+     * @param userId Long
+     * @param requestDto RequestDto
+     * @return the friendships of a user
+     */
     public Page<FriendshipDto> friendshipOfUser(Long userId, RequestDto requestDto){
         return  ((FriendshipDao)baseDao)
                 .findAllBySenderIdOrReceiverIdAndStatus(userId,userId,FRIENDS,
@@ -32,6 +37,10 @@ public class FriendshipService extends BaseServiceAbstractImpl<FriendshipEntity,
                 .map(baseConverter::toDto);
     }
 
+    /**
+     * @param userId Long
+     * @return the friendship requests of a user
+     */
     public List<FriendshipDto> friendshipRequestsOfUser(Long userId){
         return ((FriendshipDao)baseDao).
                 findAllByReceiverIdAndStatus(userId,PENDING).

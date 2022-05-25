@@ -41,6 +41,13 @@ public interface FriendshipDao extends BaseDao<FriendshipEntity, Long> {
     )
     Boolean requestExists(@Param("senderId") Long senderId, @Param("receiverId") Long receiverId);
 
+    /**
+     * Primarily used in Aspect Component to get friendships of user
+     * @param senderId Long
+     * @param receiverId Long
+     * @param status FriendshipStatus
+     * @return a List of FriendshipEntities
+     */
     @Query("select f from FriendshipEntity f where " +
             "(f.sender.id = :senderId or f.receiver.id = :receiverId) and f.status = :status ")
     List<FriendshipEntity> findAllBySenderIdOrReceiverIdAndStatus(Long senderId, Long receiverId, FriendshipStatus status);

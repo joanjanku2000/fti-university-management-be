@@ -13,6 +13,10 @@ import al.edu.fti.universitymanagement.uniman.security.util.SecurityUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+/**
+ * Converter Component Class to make the neccessary conversions
+ * between Entity And Dto representation of it
+ */
 @RequiredArgsConstructor
 @Component
 public class UserCourseConverter implements BaseConverter< UserCourseDto, UserCourseEntity> {

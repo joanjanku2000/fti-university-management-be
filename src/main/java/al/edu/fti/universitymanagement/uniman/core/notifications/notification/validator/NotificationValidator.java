@@ -10,11 +10,11 @@ import org.springframework.stereotype.Component;
 public class NotificationValidator implements BaseValidator<NotificationDto, NotificationEntity> {
     @Override
     public void validate(NotificationDto dto, Operation operation) {
-
+        // Empty body
     }
 
     @Override
     public void validate(NotificationEntity entity, Operation operation) {
-
+        // Empty body
     }
 }

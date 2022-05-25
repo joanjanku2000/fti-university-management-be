@@ -5,6 +5,10 @@ import al.edu.fti.universitymanagement.uniman.core.course.dto.LocationDto;
 import al.edu.fti.universitymanagement.uniman.core.course.entity.LocationEntity;
 import org.springframework.stereotype.Service;
 
+/**
+ * Converter Component Class to make the neccessary conversions
+ * between Entity And Dto representation of it
+ */
 @Service
 public class LocationConverterImpl implements BaseConverter<LocationDto, LocationEntity> {
 
