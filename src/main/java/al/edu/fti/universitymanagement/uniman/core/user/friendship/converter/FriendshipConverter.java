@@ -11,6 +11,10 @@ import org.springframework.stereotype.Component;
 
 import static al.edu.fti.universitymanagement.uniman.core.user.friendship.enums.FriendshipStatus.PENDING;
 
+/**
+ * Converter Component Class to make the neccessary conversions
+ * between Entity And Dto representation of it
+ */
 @RequiredArgsConstructor
 @Component
 public class FriendshipConverter implements BaseConverter<FriendshipDto, FriendshipEntity> {

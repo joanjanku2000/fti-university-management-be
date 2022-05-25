@@ -32,6 +32,11 @@ public class UserCourseService extends BaseServiceAbstractImpl<UserCourseEntity,
         super(baseDao, baseConverter, baseValidator);
     }
 
+    /**
+     * This method uses Pagination to display all courses where logged user has joined
+     * @param requestDto RequestDto
+     * @return Page element containt all UserCourseDtos
+     */
     @Override
     public Page<UserCourseDto> findAll(RequestDto requestDto) {
         log.info("Finding all courses of logged user");

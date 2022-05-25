@@ -13,6 +13,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class CourseValidator implements BaseValidator<CourseDto, CourseEntity> {
 
+    /**
+     * Validates if course dates are within bound (end > begin)
+     * @param dto
+     * @param operation
+     */
     @Override
     public void validate(CourseDto dto, Operation operation) {
         log.info("Validating passed course dto ");
