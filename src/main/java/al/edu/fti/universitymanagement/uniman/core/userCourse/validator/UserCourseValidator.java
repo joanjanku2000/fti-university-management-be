@@ -13,8 +13,7 @@ import org.springframework.stereotype.Component;
 
 import static al.edu.fti.universitymanagement.base.core.enums.Operation.CREATE;
 import static al.edu.fti.universitymanagement.base.core.enums.Operation.DELETE;
-import static al.edu.fti.universitymanagement.base.core.validator.exceptions.messages.ErrorMessages.NOT_ALLOWED;
-import static al.edu.fti.universitymanagement.base.core.validator.exceptions.messages.ErrorMessages.STUDENT_IS_ALREADY_PART_OF_THIS_COURSE;
+import static al.edu.fti.universitymanagement.base.core.validator.exceptions.messages.ErrorMessages.*;
 import static java.lang.Boolean.FALSE;
 
 @RequiredArgsConstructor
@@ -25,11 +24,14 @@ public class UserCourseValidator implements BaseValidator<UserCourseDto, UserCou
 
     @Override
     public void validate(UserCourseDto dto, Operation operation) {
-        Long userId = SecurityUtil.getLoggedUser().getUserDto().getId();
+        Long loggedUserId = SecurityUtil.getLoggedUser().getUserDto().getId();
         Long courseId = dto.getCourseDto().getId();
-
+        Long dtoUserId = dto.getUserDto().getId();
+        if (!dtoUserId.equals(loggedUserId)){
+            throw new BadRequestException(GENERIC_NOT_ALLOWED);
+        }
         if (operation == CREATE) {
-            if (userCourseDao.findAllByUserEntityIdAndCourseEntityId(userId,courseId).isEmpty() == FALSE) {
+            if (userCourseDao.findAllByUserEntityIdAndCourseEntityId(loggedUserId,courseId).isEmpty() == FALSE) {
                 throw new BadRequestException(STUDENT_IS_ALREADY_PART_OF_THIS_COURSE);
             }
         }
