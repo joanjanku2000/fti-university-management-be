@@ -35,7 +35,7 @@ public abstract class BaseServiceAbstractImpl<E extends BaseEntity, D extends Ba
     @Override
     public D update(D baseDto) {
         E baseEntity = baseDao.findById((baseDto).getId()).
-                orElseThrow(() -> new NotFoundException(ErrorMessages.NOT_FOUND + baseDto.getId() + this.getClass().getSimpleName()
+                orElseThrow(() -> new NotFoundException(ErrorMessages.NOT_FOUND + baseDto.getId() + " " + this.getClass().getSimpleName()
                         .substring(0, this.getClass().getSimpleName().indexOf(SERVICE))));
         baseValidator.validate(baseDto, Operation.UPDATE);
         log.info("Got entity {}", baseEntity);

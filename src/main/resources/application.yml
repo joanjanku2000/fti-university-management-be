@@ -18,6 +18,8 @@ spring:
     show-sql: true
     spring.jpa.database-platform: org.hibernate.dialect.MySQLDialect
 
+  profiles:
+    active: test
 
 key: Administratori123++/@
 tokenValidity: 60*60
