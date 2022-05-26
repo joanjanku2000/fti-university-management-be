@@ -5,7 +5,6 @@ spring:
     password: password
     initialization-mode: always
 
-
   h2:
     console.enabled: true
 
@@ -20,8 +19,3 @@ spring:
     init:
       mode: always
       data-locations: data-test.sql
-
-
-
-key: Administratori123++/@
-tokenValidity: 60*60

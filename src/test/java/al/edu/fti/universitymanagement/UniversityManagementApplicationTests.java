@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
+import static org.junit.jupiter.api.Assertions.*;
 
 @Slf4j
 @AutoConfigureTestDatabase
@@ -18,9 +19,7 @@ class UniversityManagementApplicationTests {
 
 	@Test
 	void contextLoads() {
-		if (userDao.getById(13L).getId()==13L){
-			log.info("User exists");
-		}
+		assertEquals(userDao.getById(13L).getId(),13L);
 	}
 
 }
