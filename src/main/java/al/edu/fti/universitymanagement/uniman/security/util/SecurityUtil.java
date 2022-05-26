@@ -21,7 +21,7 @@ public class SecurityUtil {
     }
 
     public static LoginResponse toLoginResponse(UserDto userDto, String bearer){
-        return new LoginResponse(userDto.getEmail(),Collections.singletonList(userDto.getRole().toString()),bearer);
+        return new LoginResponse(userDto.getEmail(),Collections.singletonList(userDto.getRole().toString()),bearer,userDto);
     }
 
     public static FtiUser getLoggedUser(){

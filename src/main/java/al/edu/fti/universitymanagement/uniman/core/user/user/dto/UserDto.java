@@ -27,6 +27,7 @@ public class UserDto extends BaseDto {
     private String password;
     private String microsoftAccessToken;
 
+    @JsonIgnore
     public String getFullName(){
         if (name != null && lastName != null){
             return name + " " + lastName;

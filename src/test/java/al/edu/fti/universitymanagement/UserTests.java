@@ -1,55 +1,101 @@
 package al.edu.fti.universitymanagement;
 
-import al.edu.fti.universitymanagement.base.core.dto.RequestDto;
+import al.edu.fti.universitymanagement.base.core.service.impl.BaseServiceAbstractImpl;
+import al.edu.fti.universitymanagement.uniman.core.user.user.converter.UserConverter;
+import al.edu.fti.universitymanagement.uniman.core.user.user.dao.UserDao;
 import al.edu.fti.universitymanagement.uniman.core.user.user.dto.UserDto;
-import al.edu.fti.universitymanagement.uniman.security.user.LoginResponse;
+import al.edu.fti.universitymanagement.uniman.core.user.user.entity.UserEntity;
+import al.edu.fti.universitymanagement.uniman.core.user.user.enums.Gender;
+import al.edu.fti.universitymanagement.uniman.core.user.user.enums.Role;
+import al.edu.fti.universitymanagement.uniman.core.user.user.service.UserService;
+import al.edu.fti.universitymanagement.uniman.core.user.user.validator.UserValidator;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
-import static org.junit.jupiter.api.Assertions.*;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 @Slf4j
-@AutoConfigureTestDatabase
-@ActiveProfiles("test")
-@SpringBootTest
+@ExtendWith(MockitoExtension.class)
 public class UserTests {
 
-    private final String BASE_URL = "http://localhost:8080/api/v1";
+    @Mock
+    private UserDao userDao;
 
-    private Long existingUserId = 1L;
-    private String jwtToken = null;
+    @Mock
+    private UserValidator userValidator;
+
+    @Mock
+    private UserConverter userConverter;
+
+    @InjectMocks
+    private UserService userService;
+
 
     @Test
-    public void performLogin(){
+    @DisplayName("Update User Properties")
+    public void updateUserHimself_status200() {
+        UserDto userDto = new UserDto();
+        userDto.setId(2L);
+        userDto.setName("Bob");
+        userDto.setLastName("Ndertuesi");
+        userDto.setEmail("bobndertuese@gmail.com");
+        userDto.setBirthday(LocalDate.of(2000,04,02));
+        userDto.setGender(Gender.MALE.ordinal());
+        userDto.setRole(Role.STUDENT);
+        userDto.setIdNumber("K00204012N");
+        userDto.setRegistrationDate(LocalDateTime.now());
 
-            String loginUrl = "http://localhost:8080/login";
-            UserDto loginDTO = new UserDto();
-            loginDTO.setEmail("jo@fti.edu.al");
-            loginDTO.setMicrosoftAccessToken("eyJ0eXAiOiJKV1QiLCJub25jZSI6InR2Q1BMYkw3OVRkd1o3djVMSlpDUG5hM0JvVnpJZUlLVlFzd1dqMTNfQmMiLCJhbGciOiJSUzI1NiIsIng1dCI6ImpTMVhvMU9XRGpfNTJ2YndHTmd2UU8yVnpNYyIsImtpZCI6ImpTMVhvMU9XRGpfNTJ2YndHTmd2UU8yVnpNYyJ9.eyJhdWQiOiIwMDAwMDAwMy0wMDAwLTAwMDAtYzAwMC0wMDAwMDAwMDAwMDAiLCJpc3MiOiJodHRwczovL3N0cy53aW5kb3dzLm5ldC83Mzc0NGM4Mi04MDJmLTRmMTQtYjNiZS1hOTdkZjA3ODdkMTcvIiwiaWF0IjoxNjUxODIzOTkxLCJuYmYiOjE2NTE4MjM5OTEsImV4cCI6MTY1MTgyOTM2OCwiYWNjdCI6MCwiYWNyIjoiMSIsImFpbyI6IkUyWmdZRERnVVk3Z09PZ3NLUDN2cklYQmxhNkp6WEVOVDdoMGpzUmZNcGdUeE1QandBUUEiLCJhbXIiOlsicHdkIl0sImFwcF9kaXNwbGF5bmFtZSI6IlVuaXZlcnNpdHkgbWFuYWdtZW50IGFwcCIsImFwcGlkIjoiODBlODIxNWMtZDgxZi00OGJlLWE1ZmQtYmY3MDJkN2ZmYWZmIiwiYXBwaWRhY3IiOiIwIiwiaWR0eXAiOiJ1c2VyIiwiaXBhZGRyIjoiOTUuMTA3LjE3Mi4xNDAiLCJuYW1lIjoiU3RldmkgWml1Iiwib2lkIjoiYjViYmU5Y2YtMTAxOC00YTYwLThkMDItOWVkMmE1ODA4ZDZiIiwicGxhdGYiOiIzIiwicHVpZCI6IjEwMDMyMDAxQTRCQzAxNDkiLCJyaCI6IjAuQVFzQWdreDBjeS1BRkUtenZxbDk4SGg5RndNQUFBQUFBQUFBd0FBQUFBQUFBQUFMQUtnLiIsInNjcCI6Im9wZW5pZCBwcm9maWxlIFVzZXIuUmVhZCBlbWFpbCIsInN1YiI6InkxTWg4S3VVR3FicVBVVnFrTDcyYVN1MG1idFNaSnF6eVp4NVNBNkRkamMiLCJ0ZW5hbnRfcmVnaW9uX3Njb3BlIjoiRVUiLCJ0aWQiOiI3Mzc0NGM4Mi04MDJmLTRmMTQtYjNiZS1hOTdkZjA3ODdkMTciLCJ1bmlxdWVfbmFtZSI6InN0ZXZpLnppdUBmdGkuZWR1LmFsIiwidXBuIjoiU3RldmkuWml1QGZ0aS5lZHUuYWwiLCJ1dGkiOiJsbTBQVFRVSzZFbU1zYkZubmo5cEFBIiwidmVyIjoiMS4wIiwid2lkcyI6WyJiNzlmYmY0ZC0zZWY5LTQ2ODktODE0My03NmIxOTRlODU1MDkiXSwieG1zX3N0Ijp7InN1YiI6InlvSEdBRU9jUmNISWxZMDk4bzJOZGR6bDFadzZYdE15QkFPeVNJdWVqUjAifSwieG1zX3RjZHQiOjEzNzEwMTE0NDN9.LXETxDaeQYXfP5_RxlIdcHXk4qbSl77aTPMLyfGGpu0cvUmUac4DKxQKiqJJxc0ZJPhNSqeifhqk7BgXKVjNsHh2qYYe3hYANtNtsOUv83sqNZEnZpi3wJoXW7rnOnxWMHJOO_f59PCcf2M6w2PkLM3hUr4RDNw7DjfWdhZy8dumxZoO7L0IPfPU6_dw6tuDkXSSIWd7va9R5FHWUk_ZT0DQKBApwBOmUUTzk9fOOMuUWv-iMjCjCWqY9MbnTnp0FoXl5ZMfZKIFB88__-FOXnHrSEUx61fhS_Hz6GvYOD4J2t59snF5rMQoibKgr_GhsKTCV2N1kQI67rD0XARbAQ");
+        // Updated Entity
+        UserEntity userEntity = new UserEntity();
+        userEntity.setId(2L);
+        userEntity.setName("Bob");
+        userEntity.setLastName("Ndertuesi");
+        userEntity.setEmail("bobndertuesi@gmail.com");
+        userEntity.setBirthday(LocalDate.of(2000,04,02));
+        userEntity.setGender(Gender.MALE);
+        userEntity.setRole(Role.STUDENT);
+        userEntity.setIdNumber("K00204012N");
 
-            TestRestTemplate testRestTemplate = new TestRestTemplate();
-            ResponseEntity<LoginResponse> response =
-                    testRestTemplate.postForEntity(loginUrl,loginDTO, LoginResponse.class);
-            this.jwtToken = response.getBody().getBearer();
-            log.info("Token {}",jwtToken);
-            assertEquals(response.getStatusCode(), HttpStatus.OK);
+
+        Mockito.when(userConverter.toEntity(any(UserDto.class),any(UserEntity.class))).thenReturn(userEntity);
+        Mockito.when(userDao.save(any(UserEntity.class))).thenReturn(userEntity);
+
+        //Original entity
+        userEntity.setName("Something other than Bob");
+        Mockito.when(userDao.findById(2L)).thenReturn(Optional.of(userEntity));
+
+
+        UserDto updatedEntity = userService.update(userDto);
+        log.info("Updated entity",updatedEntity.getFullName());
+
+        verify(userDao,times(1))
+                .save(any(UserEntity.class));
+
+        assertEquals(updatedEntity.getName(), userDto.getName());
 
     }
 
     @Test
-    public void updateUserHimself_status200(){
-
-    }
-
-    @Test
-    public void updateUserNotHimself_status403(){
+    public void updateUserNotHimself_status403() {
 
     }
 }
