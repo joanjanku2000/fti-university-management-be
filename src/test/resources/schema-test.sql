@@ -1,3 +1,4 @@
+-- MYSQL DIALECT
 create table location
 (
     ID     bigint auto_increment
@@ -26,12 +27,12 @@ create table university_user
         primary key,
     name              varchar(64)  not null,
     last_name         varchar(64)  not null,
-    birthday          timestamp    not null on update CURRENT_TIMESTAMP,
+    birthday          timestamp    not null ,
     ID_NUMBER         varchar(12)  not null,
     gender            int          not null,
     picture           text         null,
     role              int          null,
-    registration_date timestamp    null on update CURRENT_TIMESTAMP,
+    registration_date timestamp    null ,
     active            varchar(255) null,
     email             varchar(255) null,
     password          varchar(255) null,
@@ -41,7 +42,7 @@ create table university_user
 
 create table course_student
 (
-    ID         bigint auto_increment
+    ID         serial
         primary key,
     joined_on  timestamp  not null,
     left_on    timestamp  null,
@@ -56,7 +57,7 @@ create table course_student
 
 create table friendship
 (
-    ID          bigint auto_increment
+    ID          serial
         primary key,
     sender_id   bigint     not null,
     receiver_id bigint     not null,
@@ -70,7 +71,7 @@ create table friendship
 
 create table notification_user
 (
-    ID       bigint auto_increment
+    ID       serial
         primary key,
     message  varchar(255) not null,
     user_id  bigint       not null,
@@ -85,7 +86,7 @@ create table notification_user
 
 create table university_comment
 (
-    ID             bigint auto_increment
+    ID             serial
         primary key,
     comment_string text       not null,
     created_at     timestamp  not null,
@@ -104,7 +105,7 @@ create table university_comment
 
 create table likes
 (
-    ID         bigint auto_increment
+    ID         serial
         primary key,
     user_id    bigint     not null,
     comment_id bigint     not null,
