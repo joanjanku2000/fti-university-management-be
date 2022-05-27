@@ -11,12 +11,14 @@ import al.edu.fti.universitymanagement.uniman.core.user.user.dao.UserDao;
 import al.edu.fti.universitymanagement.uniman.core.user.user.entity.UserEntity;
 import al.edu.fti.universitymanagement.uniman.security.util.SecurityUtil;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import static al.edu.fti.universitymanagement.base.core.enums.Operation.*;
 import static al.edu.fti.universitymanagement.base.core.validator.exceptions.messages.ErrorMessages.*;
 import static al.edu.fti.universitymanagement.uniman.core.user.friendship.enums.FriendshipStatus.PENDING;
 
+@Slf4j
 @RequiredArgsConstructor
 @Component
 public class FriendshipValidator implements BaseValidator<FriendshipDto, FriendshipEntity> {
@@ -37,7 +39,7 @@ public class FriendshipValidator implements BaseValidator<FriendshipDto, Friends
     @Override
     public void validate(FriendshipDto dto, Operation operation) {
         UserEntity loggedUser = userDao.getById(SecurityUtil.getLoggedUser().getUserDto().getId());
-
+        log.info("Logged user {}",loggedUser.getId());
         if (operation == CREATE) {
             if (dto.getSender()!= null && dto.getSender().getId().equals(loggedUser.getId()) == Boolean.FALSE) {
                 throw new NotAllowedException(GENERIC_NOT_ALLOWED);
