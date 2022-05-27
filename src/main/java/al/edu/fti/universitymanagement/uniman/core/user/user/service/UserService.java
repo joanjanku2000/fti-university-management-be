@@ -47,4 +47,8 @@ public class UserService extends BaseServiceAbstractImpl<UserEntity, UserDto> {
         userDto.setPassword("password");
         super.save(userDto);
     }
+
+    public Boolean userExists(String email){
+        return ((UserDao)baseDao).userExists(email);
+    }
 }
