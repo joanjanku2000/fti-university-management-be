@@ -6,6 +6,7 @@ import al.edu.fti.universitymanagement.uniman.core.comment.comment.dto.CommentDt
 import al.edu.fti.universitymanagement.uniman.core.comment.comment.entity.CommentEntity;
 import al.edu.fti.universitymanagement.uniman.core.comment.comment.service.CommentService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,5 +25,10 @@ public class CourseCommentController extends BaseController<CommentDto, CommentE
     @GetMapping("/timeline/{userId}")
     public ResponseEntity<List<CommentDto>> getUpdatesOfUser(@PathVariable("userId") Long userId){
         return ResponseEntity.ok(((CommentService)baseService).getUserUpdates(userId));
+    }
+
+    @GetMapping("/courseid/{courseid}")
+    public ResponseEntity<List<CommentDto>> getCommentsOfCourse(@PathVariable("courseid") Long courseId){
+        return ResponseEntity.ok(((CommentService) baseService).getCommentsOfCourse(courseId));
     }
 }
