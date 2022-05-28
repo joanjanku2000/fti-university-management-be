@@ -28,4 +28,11 @@ public class CommentService extends BaseServiceAbstractImpl<CommentEntity, Comme
                 .collect(Collectors.toList());
     }
 
+    public List<CommentDto> getCommentsOfCourse(Long courseId){
+        return ((CommentDao) baseDao).findCommentsOfCourse(courseId)
+                .stream()
+                .map(baseConverter::toDto)
+                .collect(Collectors.toList());
+    }
+
 }
