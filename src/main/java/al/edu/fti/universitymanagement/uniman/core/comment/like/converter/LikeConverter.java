@@ -33,6 +33,7 @@ public class LikeConverter implements BaseConverter<LikeDto, LikeEntity> {
         UserDto userDto = new UserDto();
         userDto.setName(baseEntity.getUserEntity().getName());
         userDto.setLastName(baseEntity.getUserEntity().getLastName());
+        userDto.setId(baseEntity.getUserEntity().getId());
 
         likeDto.setLikedBy(userDto);
         return likeDto;
