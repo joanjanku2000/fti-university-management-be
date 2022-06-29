@@ -6,5 +6,5 @@ import lombok.NoArgsConstructor;
 @Data @NoArgsConstructor
 public class RequestDto {
     private Integer pageNumber = 0; // default
-    private Integer pageSize = 10; // default
+    private Integer pageSize = 50; // default
 }

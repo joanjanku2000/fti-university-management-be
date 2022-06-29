@@ -38,7 +38,7 @@ public abstract class BaseController<T extends BaseDto, S extends BaseEntity> {
     }
 
     @GetMapping
-    public ResponseEntity<Page<T>> findAll(RequestDto requestDto){
-        return ResponseEntity.ok(baseService.findAll(requestDto));
+    public ResponseEntity<Page<T>> findAll(){
+        return ResponseEntity.ok(baseService.findAll(new RequestDto()));
     }
 }

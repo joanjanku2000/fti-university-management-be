@@ -26,9 +26,9 @@ public class UserCourseController extends BaseController<UserCourseDto, UserCour
 
     @GetMapping
     @Override
-    public ResponseEntity<Page<UserCourseDto>> findAll(@RequestBody RequestDto requestDto) {
+    public ResponseEntity<Page<UserCourseDto>> findAll() {
         log.info("Controller: Finding all users courses");
-        return ResponseEntity.ok(baseService.findAll(requestDto));
+        return ResponseEntity.ok(baseService.findAll(new RequestDto()));
     }
 
     @GetMapping("/course/{id}")
@@ -37,7 +37,7 @@ public class UserCourseController extends BaseController<UserCourseDto, UserCour
     }
 
     @GetMapping("/user/{id}")
-    public ResponseEntity<Page<UserCourseDto>> findCoursesOfUser(@PathVariable Long id, @RequestBody RequestDto requestDto){
-        return ResponseEntity.ok(((UserCourseService) baseService).findCoursesOfUsers(id,requestDto));
+    public ResponseEntity<Page<UserCourseDto>> findCoursesOfUser(@PathVariable Long id){
+        return ResponseEntity.ok(((UserCourseService) baseService).findCoursesOfUsers(id,new RequestDto()));
     }
 }
