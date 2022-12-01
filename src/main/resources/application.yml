@@ -1,13 +1,9 @@
 spring:
-  datasource:
-    url: ${UNIMAN_DB_URL}
-    username: ${UNIMAN_DB_USERNAME}
-    password: ${UNIMAN_DB_PASSWORD}
+  profiles:
+    active: dev
 
-#    url: jdbc:postgresql://ec2-52-48-159-67.eu-west-1.compute.amazonaws.com:5432/db4r7ukl4at7s7
-#    username: wjcchrrjsgfakw
-#    password: 6bbe4476b1175f2d9c79dcfe5ad4b631378c644418d86773cb068dd01991f5bf
-#    driver-class-name: org.postgresql.Driver
+  datasource:
+    driver-class-name: org.postgresql.Driver
 
   jpa:
     hibernate:
@@ -18,3 +14,22 @@ spring:
 
 key: Administratori123++/@
 tokenValidity: 60*60
+
+
+---
+  spring:
+    profiles: dev
+
+    datasource:
+      url: jdbc:postgresql://localhost:5432/uniman
+      username: postgres
+      password: Joa@2000?
+
+---
+  spring:
+    profiles: prod
+
+    datasource:
+        url: ${UNIMAN_DB_URL}
+        username: ${UNIMAN_DB_USERNAME}
+        password: ${UNIMAN_DB_PASSWORD}
