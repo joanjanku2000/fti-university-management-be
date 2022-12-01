@@ -1,0 +1,20 @@
+spring:
+  datasource:
+#    url: ${UNIMAN_DB_URL}
+#    username: ${UNIMAN_DB_USERNAME}
+#    password: ${UNIMAN_DB_PASSWORD}
+
+    url: jdbc:postgresql://localhost:5432/uniman
+    username: postgres
+    password: Joa@2000?
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+
+key: Administratori123++/@
+tokenValidity: 60*60
