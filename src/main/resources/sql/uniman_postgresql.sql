@@ -1,7 +1,7 @@
 
 CREATE TABLE public.location
 (
-    id integer NOT NULL DEFAULT nextval('location_id_seq'::regclass),
+    id  serial,
     name character varying(64) COLLATE pg_catalog."default" NOT NULL,
     active boolean,
     CONSTRAINT location_pkey PRIMARY KEY (id)
@@ -9,7 +9,7 @@ CREATE TABLE public.location
 
 CREATE TABLE public.course
 (
-    id integer NOT NULL DEFAULT nextval('course_id_seq'::regclass),
+    id serial,
     name character varying(64) COLLATE pg_catalog."default" NOT NULL,
     description character varying(255) COLLATE pg_catalog."default",
     start_time timestamp without time zone,
@@ -25,7 +25,7 @@ CREATE TABLE public.course
 
 CREATE TABLE public.university_user
 (
-    id integer NOT NULL DEFAULT nextval('university_user_id_seq'::regclass),
+    id serial ,
     name character varying(64) COLLATE pg_catalog."default" NOT NULL,
     last_name character varying(64) COLLATE pg_catalog."default" NOT NULL,
     birthday timestamp without time zone NOT NULL,
@@ -43,7 +43,7 @@ CREATE TABLE public.university_user
 
 CREATE TABLE public.course_student
 (
-    id integer NOT NULL DEFAULT nextval('course_student_id_seq'::regclass),
+    id serial,
     joined_on timestamp without time zone NOT NULL,
     left_on timestamp without time zone,
     course_id bigint NOT NULL,
@@ -64,7 +64,7 @@ CREATE TABLE public.course_student
 
 CREATE TABLE public.friendship
 (
-    id integer NOT NULL DEFAULT nextval('friendship_id_seq'::regclass),
+    id serial,
     sender_id bigint NOT NULL,
     receiver_id bigint NOT NULL,
     status integer NOT NULL,
@@ -81,7 +81,7 @@ CREATE TABLE public.friendship
 );
 CREATE TABLE public.university_comment
 (
-    id integer NOT NULL DEFAULT nextval('university_comment_id_seq'::regclass),
+    id serial,
     comment_string text COLLATE pg_catalog."default" NOT NULL,
     created_at timestamp without time zone NOT NULL,
     parent_id bigint,
@@ -105,7 +105,7 @@ CREATE TABLE public.university_comment
 );
 CREATE TABLE public.likes
 (
-    id integer NOT NULL DEFAULT nextval('likes_id_seq'::regclass),
+    id serial,
     user_id bigint NOT NULL,
     comment_id bigint NOT NULL,
     active boolean,
@@ -125,7 +125,7 @@ CREATE TABLE public.likes
 
 CREATE TABLE public.notification_user
 (
-    id integer NOT NULL DEFAULT nextval('notification_user_id_seq'::regclass),
+    id serial,
     message character varying(255) COLLATE pg_catalog."default" NOT NULL,
     user_id bigint NOT NULL,
     type integer,
