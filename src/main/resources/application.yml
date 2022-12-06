@@ -1,4 +1,7 @@
 spring:
+  profiles:
+    active: dev
+
   datasource:
 #    url: ${UNIMAN_DB_URL}
 #    username: ${UNIMAN_DB_USERNAME}
@@ -18,3 +21,22 @@ spring:
 
 key: Administratori123++/@
 tokenValidity: 60*60
+
+
+---
+  spring:
+    profiles: dev
+
+    datasource:
+      url: jdbc:postgresql://localhost:5432/uniman
+      username: postgres
+      password: Joa@2000?
+
+---
+  spring:
+    profiles: prod
+
+    datasource:
+        url: ${UNIMAN_DB_URL}
+        username: ${UNIMAN_DB_USERNAME}
+        password: ${UNIMAN_DB_PASSWORD}

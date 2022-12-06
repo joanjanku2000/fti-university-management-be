@@ -10,20 +10,11 @@ import al.edu.fti.universitymanagement.base.core.service.BaseService;
 import al.edu.fti.universitymanagement.base.core.validator.BaseValidator;
 import al.edu.fti.universitymanagement.base.core.validator.exceptions.NotFoundException;
 import al.edu.fti.universitymanagement.base.core.validator.exceptions.messages.ErrorMessages;
-import com.mongo.filter.dao.FilterRepo;
-import com.mongo.filter.dao.FilterRepoJpaImpl;
-import com.mongo.filter.dto.filter.FilterWrap;
-import lombok.RequiredArgsConstructor;
+import com.jpa.filter.dao.FilterRepo;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.mongodb.core.query.CriteriaDefinition;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Slf4j
 
@@ -71,6 +62,7 @@ public abstract class BaseServiceAbstractImpl<E extends BaseEntity, D extends Ba
 
     /**
      * Soft delete method
+     *
      * @param id Id of Entity
      * @return Deleted Object
      */
@@ -87,7 +79,7 @@ public abstract class BaseServiceAbstractImpl<E extends BaseEntity, D extends Ba
         return baseConverter.toDto(baseEntity);
     }
 
-    public  Page<D> findAll(RequestDto requestDto) {
+    public Page<D> findAll(RequestDto requestDto) {
         return baseDao.findAll(PageRequest.of(requestDto.getPageNumber(), requestDto.getPageSize()))
                 .map(baseConverter::toDto);
     }

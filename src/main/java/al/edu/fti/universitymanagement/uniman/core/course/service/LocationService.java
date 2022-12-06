@@ -6,9 +6,9 @@ import al.edu.fti.universitymanagement.base.core.service.impl.BaseServiceAbstrac
 import al.edu.fti.universitymanagement.base.core.validator.BaseValidator;
 import al.edu.fti.universitymanagement.uniman.core.course.dto.LocationDto;
 import al.edu.fti.universitymanagement.uniman.core.course.entity.LocationEntity;
-import com.mongo.filter.dao.FilterRepo;
-import com.mongo.filter.dao.FilterRepoJpaImpl;
-import com.mongo.filter.dto.filter.FilterWrap;
+import com.jpa.filter.dao.FilterRepo;
+import com.jpa.filter.dao.FilterRepoJpaImpl;
+import com.jpa.filter.dto.filter.FilterWrap;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 

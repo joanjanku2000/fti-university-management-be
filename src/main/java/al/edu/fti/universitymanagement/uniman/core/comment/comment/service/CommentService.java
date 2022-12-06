@@ -7,9 +7,9 @@ import al.edu.fti.universitymanagement.base.core.validator.BaseValidator;
 import al.edu.fti.universitymanagement.uniman.core.comment.comment.dao.CommentDao;
 import al.edu.fti.universitymanagement.uniman.core.comment.comment.dto.CommentDto;
 import al.edu.fti.universitymanagement.uniman.core.comment.comment.entity.CommentEntity;
-import com.mongo.filter.dao.FilterRepo;
-import com.mongo.filter.dao.FilterRepoJpaImpl;
-import com.mongo.filter.dto.filter.FilterWrap;
+import com.jpa.filter.dao.FilterRepo;
+import com.jpa.filter.dao.FilterRepoJpaImpl;
+import com.jpa.filter.dto.filter.FilterWrap;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

@@ -7,7 +7,7 @@ import al.edu.fti.universitymanagement.uniman.core.comment.comment.entity.Commen
 import al.edu.fti.universitymanagement.uniman.core.user.friendship.dto.FriendshipDto;
 import al.edu.fti.universitymanagement.uniman.core.user.friendship.entity.FriendshipEntity;
 import al.edu.fti.universitymanagement.uniman.core.user.friendship.service.FriendshipService;
-import com.mongo.filter.dto.filter.FilterWrap;
+import com.jpa.filter.dto.filter.FilterWrap;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

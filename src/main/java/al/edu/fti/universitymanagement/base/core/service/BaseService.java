@@ -3,7 +3,7 @@ package al.edu.fti.universitymanagement.base.core.service;
 import al.edu.fti.universitymanagement.base.core.dto.BaseDto;
 import al.edu.fti.universitymanagement.base.core.dto.RequestDto;
 import al.edu.fti.universitymanagement.base.core.entity.BaseEntity;
-import com.mongo.filter.dto.filter.FilterWrap;
+import com.jpa.filter.dto.filter.FilterWrap;
 import org.springframework.data.domain.Page;
 
 import java.util.List;

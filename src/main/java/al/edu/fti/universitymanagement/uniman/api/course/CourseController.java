@@ -5,7 +5,7 @@ import al.edu.fti.universitymanagement.base.core.service.BaseService;
 import al.edu.fti.universitymanagement.uniman.core.comment.comment.entity.CommentEntity;
 import al.edu.fti.universitymanagement.uniman.core.course.dto.CourseDto;
 import al.edu.fti.universitymanagement.uniman.core.course.entity.CourseEntity;
-import com.mongo.filter.dto.filter.FilterWrap;
+import com.jpa.filter.dto.filter.FilterWrap;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

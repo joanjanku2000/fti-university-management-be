@@ -6,7 +6,7 @@ import al.edu.fti.universitymanagement.uniman.core.comment.like.entity.LikeEntit
 import al.edu.fti.universitymanagement.uniman.core.notifications.notification.dto.NotificationDto;
 import al.edu.fti.universitymanagement.uniman.core.notifications.notification.entity.NotificationEntity;
 import al.edu.fti.universitymanagement.uniman.core.notifications.notification.service.NotificationService;
-import com.mongo.filter.dto.filter.FilterWrap;
+import com.jpa.filter.dto.filter.FilterWrap;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;

@@ -8,9 +8,9 @@ import al.edu.fti.universitymanagement.uniman.core.notifications.notification.da
 import al.edu.fti.universitymanagement.uniman.core.notifications.notification.dto.NotificationDto;
 import al.edu.fti.universitymanagement.uniman.core.notifications.notification.entity.NotificationEntity;
 import al.edu.fti.universitymanagement.uniman.security.util.SecurityUtil;
-import com.mongo.filter.dao.FilterRepo;
-import com.mongo.filter.dao.FilterRepoJpaImpl;
-import com.mongo.filter.dto.filter.FilterWrap;
+import com.jpa.filter.dao.FilterRepo;
+import com.jpa.filter.dao.FilterRepoJpaImpl;
+import com.jpa.filter.dto.filter.FilterWrap;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

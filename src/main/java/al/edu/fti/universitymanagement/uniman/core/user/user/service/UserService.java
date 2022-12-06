@@ -9,9 +9,9 @@ import al.edu.fti.universitymanagement.base.core.validator.exceptions.messages.E
 import al.edu.fti.universitymanagement.uniman.core.user.user.dao.UserDao;
 import al.edu.fti.universitymanagement.uniman.core.user.user.dto.UserDto;
 import al.edu.fti.universitymanagement.uniman.core.user.user.entity.UserEntity;
-import com.mongo.filter.dao.FilterRepo;
-import com.mongo.filter.dao.FilterRepoJpaImpl;
-import com.mongo.filter.dto.filter.FilterWrap;
+import com.jpa.filter.dao.FilterRepo;
+import com.jpa.filter.dao.FilterRepoJpaImpl;
+import com.jpa.filter.dto.filter.FilterWrap;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
