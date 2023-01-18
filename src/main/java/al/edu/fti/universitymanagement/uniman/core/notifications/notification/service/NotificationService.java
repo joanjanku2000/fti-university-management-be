@@ -2,6 +2,7 @@ package al.edu.fti.universitymanagement.uniman.core.notifications.notification.s
 
 import al.edu.fti.universitymanagement.base.core.converter.BaseConverter;
 import al.edu.fti.universitymanagement.base.core.dao.BaseDao;
+import al.edu.fti.universitymanagement.base.core.dto.RequestDto;
 import al.edu.fti.universitymanagement.base.core.service.impl.BaseServiceAbstractImpl;
 import al.edu.fti.universitymanagement.base.core.validator.BaseValidator;
 import al.edu.fti.universitymanagement.uniman.core.notifications.notification.dao.NotificationDao;
@@ -9,8 +10,8 @@ import al.edu.fti.universitymanagement.uniman.core.notifications.notification.dt
 import al.edu.fti.universitymanagement.uniman.core.notifications.notification.entity.NotificationEntity;
 import al.edu.fti.universitymanagement.uniman.security.util.SecurityUtil;
 import com.jpa.filter.dao.FilterRepo;
-import com.jpa.filter.dao.FilterRepoJpaImpl;
-import com.jpa.filter.dto.filter.FilterWrap;
+import com.jpa.filter.dto.FilterWrap;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -30,6 +31,11 @@ public class NotificationService extends BaseServiceAbstractImpl<NotificationEnt
                 .findAllByTargetId(loggedUserId).stream()
                 .map(baseConverter::toDto)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public Page<NotificationDto> findAll(RequestDto requestDto) {
+        return null;
     }
 
     @Override

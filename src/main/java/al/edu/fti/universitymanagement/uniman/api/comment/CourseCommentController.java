@@ -5,7 +5,7 @@ import al.edu.fti.universitymanagement.base.core.service.BaseService;
 import al.edu.fti.universitymanagement.uniman.core.comment.comment.dto.CommentDto;
 import al.edu.fti.universitymanagement.uniman.core.comment.comment.entity.CommentEntity;
 import al.edu.fti.universitymanagement.uniman.core.comment.comment.service.CommentService;
-import com.jpa.filter.dto.filter.FilterWrap;
+import com.jpa.filter.dto.FilterWrap;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,7 +30,7 @@ public class CourseCommentController extends BaseController<CommentDto, CommentE
     }
 
     @Override
-    public ResponseEntity<List<CommentDto>> filter(@RequestBody  FilterWrap filterWrap) throws ClassNotFoundException {
+    public ResponseEntity<List<CommentDto>> filter(@RequestBody FilterWrap filterWrap) throws ClassNotFoundException {
         return ResponseEntity.ok(baseService.findAll(filterWrap,CommentEntity.class));
     }
 }

@@ -4,7 +4,7 @@ import al.edu.fti.universitymanagement.base.core.dto.BaseDto;
 import al.edu.fti.universitymanagement.base.core.dto.RequestDto;
 import al.edu.fti.universitymanagement.base.core.entity.BaseEntity;
 import al.edu.fti.universitymanagement.base.core.service.BaseService;
-import com.jpa.filter.dto.filter.FilterWrap;
+import com.jpa.filter.dto.FilterWrap;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -41,10 +41,11 @@ public abstract class BaseController<T extends BaseDto, S extends BaseEntity> {
     }
 
     @GetMapping
-    public ResponseEntity<Page<T>> findAll(){
+    public ResponseEntity<Page<T>> findAll() {
         return ResponseEntity.ok(baseService.findAll(new RequestDto()));
     }
 
     @GetMapping("/filter")
-    public abstract ResponseEntity<List<T>> filter(@RequestBody  FilterWrap filterWrap ) throws ClassNotFoundException;
+    public abstract ResponseEntity<List<T>> filter(@RequestBody FilterWrap filterWrap) throws ClassNotFoundException;
+
 }

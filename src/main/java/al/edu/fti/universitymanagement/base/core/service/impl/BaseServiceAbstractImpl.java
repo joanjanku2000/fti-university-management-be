@@ -11,10 +11,14 @@ import al.edu.fti.universitymanagement.base.core.validator.BaseValidator;
 import al.edu.fti.universitymanagement.base.core.validator.exceptions.NotFoundException;
 import al.edu.fti.universitymanagement.base.core.validator.exceptions.messages.ErrorMessages;
 import com.jpa.filter.dao.FilterRepo;
+import com.jpa.filter.dto.FilterWrap;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 
@@ -79,14 +83,14 @@ public abstract class BaseServiceAbstractImpl<E extends BaseEntity, D extends Ba
         return baseConverter.toDto(baseEntity);
     }
 
-    public Page<D> findAll(RequestDto requestDto) {
-        return baseDao.findAll(PageRequest.of(requestDto.getPageNumber(), requestDto.getPageSize()))
-                .map(baseConverter::toDto);
-    }
-
-//    public List<D> findAll(FilterWrap filterWrap, Class<E> clazz) {
-//        return filterRepo.filter(filterWrap,clazz).stream().map(baseConverter::toDto).collect(Collectors.toList());
+//    public Page<D> findAll(RequestDto requestDto) {
+//        return baseDao.findAll(PageRequest.of(requestDto.getPageNumber(), requestDto.getPageSize()))
+//                .map(baseConverter::toDto);
 //    }
+
+    public List<D> findAll(FilterWrap filterWrap, Class<E> clazz) {
+        return filterRepo.filter(filterWrap,clazz).stream().map(baseConverter::toDto).collect(Collectors.toList());
+    }
 
 
 }

@@ -2,6 +2,7 @@ package al.edu.fti.universitymanagement.uniman.core.user.user.service;
 
 import al.edu.fti.universitymanagement.base.core.converter.BaseConverter;
 import al.edu.fti.universitymanagement.base.core.dao.BaseDao;
+import al.edu.fti.universitymanagement.base.core.dto.RequestDto;
 import al.edu.fti.universitymanagement.base.core.service.impl.BaseServiceAbstractImpl;
 import al.edu.fti.universitymanagement.base.core.validator.BaseValidator;
 import al.edu.fti.universitymanagement.base.core.validator.exceptions.NotFoundException;
@@ -10,9 +11,9 @@ import al.edu.fti.universitymanagement.uniman.core.user.user.dao.UserDao;
 import al.edu.fti.universitymanagement.uniman.core.user.user.dto.UserDto;
 import al.edu.fti.universitymanagement.uniman.core.user.user.entity.UserEntity;
 import com.jpa.filter.dao.FilterRepo;
-import com.jpa.filter.dao.FilterRepoJpaImpl;
-import com.jpa.filter.dto.filter.FilterWrap;
+import com.jpa.filter.dto.FilterWrap;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -55,6 +56,11 @@ public class UserService extends BaseServiceAbstractImpl<UserEntity, UserDto> {
 
     public Boolean userExists(String email){
         return ((UserDao)baseDao).userExists(email);
+    }
+
+    @Override
+    public Page<UserDto> findAll(RequestDto requestDto) {
+        return null;
     }
 
     @Override

@@ -2,14 +2,15 @@ package al.edu.fti.universitymanagement.uniman.core.course.service;
 
 import al.edu.fti.universitymanagement.base.core.converter.BaseConverter;
 import al.edu.fti.universitymanagement.base.core.dao.BaseDao;
+import al.edu.fti.universitymanagement.base.core.dto.RequestDto;
 import al.edu.fti.universitymanagement.base.core.service.impl.BaseServiceAbstractImpl;
 import al.edu.fti.universitymanagement.base.core.validator.BaseValidator;
 import al.edu.fti.universitymanagement.uniman.core.course.dto.LocationDto;
 import al.edu.fti.universitymanagement.uniman.core.course.entity.LocationEntity;
 import com.jpa.filter.dao.FilterRepo;
-import com.jpa.filter.dao.FilterRepoJpaImpl;
-import com.jpa.filter.dto.filter.FilterWrap;
+import com.jpa.filter.dto.FilterWrap;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,6 +26,11 @@ public class LocationService extends BaseServiceAbstractImpl<LocationEntity, Loc
 
     @Override
     public List<LocationDto> findAll(FilterWrap filterWrap, Class<LocationEntity> clazz) {
-        return filterRepo.filter(filterWrap,clazz).stream().map(baseConverter::toDto).collect(Collectors.toList());
+        return filterRepo.filter(filterWrap, clazz).stream().map(baseConverter::toDto).collect(Collectors.toList());
+    }
+
+    @Override
+    public Page<LocationDto> findAll(RequestDto requestDto) {
+        return null;
     }
 }

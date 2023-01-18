@@ -5,7 +5,7 @@ import al.edu.fti.universitymanagement.base.core.service.BaseService;
 import al.edu.fti.universitymanagement.uniman.core.comment.like.dto.LikeDto;
 import al.edu.fti.universitymanagement.uniman.core.comment.like.entity.LikeEntity;
 import al.edu.fti.universitymanagement.uniman.core.comment.like.service.LikeService;
-import com.jpa.filter.dto.filter.FilterWrap;
+import com.jpa.filter.dto.FilterWrap;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

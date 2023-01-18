@@ -10,7 +10,7 @@ import al.edu.fti.universitymanagement.uniman.core.user.friendship.dto.Friendshi
 import al.edu.fti.universitymanagement.uniman.core.user.friendship.entity.FriendshipEntity;
 import com.jpa.filter.dao.FilterRepo;
 import com.jpa.filter.dao.FilterRepoJpaImpl;
-import com.jpa.filter.dto.filter.FilterWrap;
+import com.jpa.filter.dto.FilterWrap;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -57,5 +57,10 @@ public class FriendshipService extends BaseServiceAbstractImpl<FriendshipEntity,
     @Override
     public List<FriendshipDto> findAll(FilterWrap filterWrap, Class<FriendshipEntity> clazz) {
         return filterRepo.filter(filterWrap,clazz).stream().map(baseConverter::toDto).collect(Collectors.toList());
+    }
+
+    @Override
+    public Page<FriendshipDto> findAll(RequestDto requestDto) {
+        return null;
     }
 }

@@ -2,14 +2,15 @@ package al.edu.fti.universitymanagement.uniman.core.comment.comment.service;
 
 import al.edu.fti.universitymanagement.base.core.converter.BaseConverter;
 import al.edu.fti.universitymanagement.base.core.dao.BaseDao;
+import al.edu.fti.universitymanagement.base.core.dto.RequestDto;
 import al.edu.fti.universitymanagement.base.core.service.impl.BaseServiceAbstractImpl;
 import al.edu.fti.universitymanagement.base.core.validator.BaseValidator;
 import al.edu.fti.universitymanagement.uniman.core.comment.comment.dao.CommentDao;
 import al.edu.fti.universitymanagement.uniman.core.comment.comment.dto.CommentDto;
 import al.edu.fti.universitymanagement.uniman.core.comment.comment.entity.CommentEntity;
 import com.jpa.filter.dao.FilterRepo;
-import com.jpa.filter.dao.FilterRepoJpaImpl;
-import com.jpa.filter.dto.filter.FilterWrap;
+import com.jpa.filter.dto.FilterWrap;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -42,5 +43,10 @@ public class CommentService extends BaseServiceAbstractImpl<CommentEntity, Comme
     @Override
     public List<CommentDto> findAll(FilterWrap filterWrap, Class<CommentEntity> clazz) {
         return filterRepo.filter(filterWrap,clazz).stream().map(baseConverter::toDto).collect(Collectors.toList());
+    }
+
+    @Override
+    public Page<CommentDto> findAll(RequestDto requestDto) {
+        return null;
     }
 }

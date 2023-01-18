@@ -3,7 +3,7 @@ package al.edu.fti.universitymanagement.base.core.service;
 import al.edu.fti.universitymanagement.base.core.dto.BaseDto;
 import al.edu.fti.universitymanagement.base.core.dto.RequestDto;
 import al.edu.fti.universitymanagement.base.core.entity.BaseEntity;
-import com.jpa.filter.dto.filter.FilterWrap;
+import com.jpa.filter.dto.FilterWrap;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
@@ -19,5 +19,5 @@ public interface BaseService<T extends BaseDto, E extends BaseEntity> {
 
     Page<T> findAll(RequestDto requestDto);
 
-    List<T> findAll(FilterWrap filterWrap,Class<E> clazz);
+    List<T> findAll(FilterWrap filterWrap, Class<E> clazz);
 }

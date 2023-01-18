@@ -2,14 +2,15 @@ package al.edu.fti.universitymanagement.uniman.core.course.service;
 
 import al.edu.fti.universitymanagement.base.core.converter.BaseConverter;
 import al.edu.fti.universitymanagement.base.core.dao.BaseDao;
+import al.edu.fti.universitymanagement.base.core.dto.RequestDto;
 import al.edu.fti.universitymanagement.base.core.service.impl.BaseServiceAbstractImpl;
 import al.edu.fti.universitymanagement.base.core.validator.BaseValidator;
 import al.edu.fti.universitymanagement.uniman.core.course.dto.CourseDto;
 import al.edu.fti.universitymanagement.uniman.core.course.entity.CourseEntity;
 import com.jpa.filter.dao.FilterRepo;
-import com.jpa.filter.dao.FilterRepoJpaImpl;
-import com.jpa.filter.dto.filter.FilterWrap;
+import com.jpa.filter.dto.FilterWrap;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,6 +22,11 @@ public class CourseService extends BaseServiceAbstractImpl<CourseEntity,CourseDt
 
     public CourseService(BaseDao<CourseEntity, Long> baseDao, BaseConverter<CourseDto, CourseEntity> baseConverter, BaseValidator<CourseDto, CourseEntity> baseValidator, FilterRepo filterRepo) {
         super(baseDao, baseConverter, baseValidator, filterRepo);
+    }
+
+    @Override
+    public Page<CourseDto> findAll(RequestDto requestDto) {
+        return null;
     }
 
     @Override

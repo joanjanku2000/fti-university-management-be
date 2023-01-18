@@ -7,7 +7,7 @@ import al.edu.fti.universitymanagement.uniman.core.user.user.dto.UserDto;
 import al.edu.fti.universitymanagement.uniman.core.userCourse.dto.UserCourseDto;
 import al.edu.fti.universitymanagement.uniman.core.userCourse.entity.UserCourseEntity;
 import al.edu.fti.universitymanagement.uniman.core.userCourse.service.UserCourseService;
-import com.jpa.filter.dto.filter.FilterWrap;
+import com.jpa.filter.dto.FilterWrap;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
